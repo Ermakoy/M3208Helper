@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+<body>
+    <div class="results">
+        <div   id="question" > </div>
+        <ul class="answers">
+
+        </ul>
+
+    </div>
+</body>
+<script>
+    var quiz_name = "TestQuiz";
+    var url_pattern = "http://127.0.0.1:8000/api/get-question/"+quiz_name+"/weight1";
+
+    $.getJSON(url_pattern, function(data) {
+        $.each(data, function(index, element) {
+            $('body').append($('<div>', {
+                text: element.title
+            }));
+        });
+    });
+
+{#    $.ajax({#}
+{#        type: "GET",#}
+{#        url: url_pattern,#}
+{#        dataType: "json",#}
+{#        success: function(data) {#}
+{#            data = JQuery.parseJSON(data);#}
+{#            $("#question").append(data.question.title); #}
+{#            console.log(data);#}
+{#            console.log(data.question);#}
+{#            console.log(data.question.title);#}
+{#          }#}
+{##}
+{#    }).done( function (data) {#}
+{#        $(this).addClass("sucess");#}
+{#        console.log(data);#}
+{#    })#}
+
+
+</script>
+
+</html>
