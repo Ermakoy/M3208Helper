@@ -1,2 +1,4 @@
-/.idea
-/node_modules
+*.pyc
+.idea/*
+*/__pycahe__
+M3208Helper/local_settings.py
