@@ -1,0 +1,6 @@
+# Data Base
+psycopg2
+
+Pillow
+sorl-thumbnail
+
