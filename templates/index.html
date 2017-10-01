@@ -3,7 +3,8 @@
 <html lang="en">
 <head>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <link href="{% static 'css/sdasd.css'%}">
+    <link href="{% static 'css/style.css'%}">
+    <script src="{% static 'js/scripts.js' %}"></script>
 
 </head>
 <body>
@@ -21,14 +22,17 @@
     $.getJSON(url_pattern, function (data) {
 
     console.log(data);
-    var question_data = $.parseJSON(data.child_folders);
-    console.log(question_data.folder)
-    console.log(question_data.child_folder)
-    console.log(question_data.child['fields'])
+    console.log(data.child_foldres);
+    var question_data = $.parseJSON(data.child_foldres);
+    console.log(question_data.child_foldres);
+    console.log(question_data.child_foldres['fields'])
 });
 
 
 
 </script>
+
+<link href="{% static 'css/style.css'%}">
+<script src="{% static 'js/scripts.js' %}"></script>
 
 </html>
