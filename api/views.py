@@ -8,7 +8,7 @@ from django.core import serializers
 def get_root(request):
     folder = Folder.objects.get(parent_folder=None)
     folder_serialize = serializers.serialize('json', [folder])
-    return JsonResponse({'folder' : folder_serialize})
+    return JsonResponse({'folder': folder_serialize})
 
 
 def get_folder(request, id):
