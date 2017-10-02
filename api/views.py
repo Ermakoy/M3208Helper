@@ -49,7 +49,7 @@ def append_folder(request):
     return JsonResponse({'status': status})
 
 
-# @require_http_methods(["POST"])
+@require_http_methods(["POST"])
 def change_name_folder(request):
     try:
         new_name = request.GET.get('name')
@@ -57,8 +57,31 @@ def change_name_folder(request):
         folder = Folder.objects.get(id=id)
         folder.name = new_name
         folder.save()
-
         status = "OK"
     except:
         status = "ERROR"
+
     return status
+
+
+@require_http_methods(["POST"])
+def simple_upload(request):
+    status = "ERROR"
+    if request.FILES['file_input']:
+        try:
+            file_input = request.FILES['file_input']
+            name = request.GET.get('name')
+            try:
+                description = request.GET.get('description')
+            except:
+                description = ""
+            file = File(
+                name=name,
+                file=file_input,
+                description=description,
+            )
+            file.save()
+            status = "OK"
+        except:
+            pass
+    return JsonResponse({'status', status})
