@@ -49,15 +49,16 @@ def append_folder(request):
     return JsonResponse({'status': status})
 
 
-@require_http_methods(["POST"])
-def change_inf_folder(request):
+# @require_http_methods(["POST"])
+def change_name_folder(request):
     try:
         new_name = request.GET.get('name')
-        id = request.GET.get('id')
+        id = int(request.GET.get('id'))
         folder = Folder.objects.get(id=id)
         folder.name = new_name
-        status = "OK"
         folder.save()
+
+        status = "OK"
     except:
         status = "ERROR"
     return status
