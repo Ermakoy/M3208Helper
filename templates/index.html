@@ -1,38 +1,22 @@
-{% load static %}
+{% load staticfiles %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <link href="{% static 'css/style.css'%}">
-    <script src="{% static 'js/scripts.js' %}"></script>
-
+    <script src="http://code.jquery.com/jquery-1.8.3.js"></script>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <title>M3208</title>
 </head>
 <body>
-    <div class="results">
-        <div   id="question" > </div>
-        <ul class="answers">
-
-        </ul>
-
+    <header></header>
+    <div class="container">
+        <div class="sidebar">
+        </div>
+        <div class="content">
+        </div>
+        <input type="button" id="GetIt" value="Кнiпка">
     </div>
+
+<script src="{% static 'js/script.js' %}"></script>
 </body>
-<script>
-
-    var url_pattern = "http://127.0.0.1:8000/api/get-folder/2";
-    $.getJSON(url_pattern, function (data) {
-
-    console.log(data);
-    console.log(data.child_foldres);
-    var question_data = $.parseJSON(data.child_foldres);
-    console.log(question_data.child_foldres);
-    console.log(question_data.child_foldres['fields'])
-});
-
-
-
-</script>
-
-<link href="{% static 'css/style.css'%}">
-<script src="{% static 'js/scripts.js' %}"></script>
-
 </html>
