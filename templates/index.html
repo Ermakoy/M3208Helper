@@ -8,15 +8,21 @@
     <title>M3208</title>
 </head>
 <body>
-    <header></header>
-    <div class="container">
-        <div class="sidebar">
-        </div>
-        <div class="content">
-        </div>
-        <input type="button" id="GetIt" value="Кнiпка">
+<header></header>
+<div class="container">
+    <div class="sidebar">
     </div>
+    <div class="content">
+    </div>
+    <input type="button" id="GetIt" value="Кнiпка">
+</div>
 
 <script src="{% static 'js/script.js' %}"></script>
+<script type="html/tpl" id="files">
+    <div class="item">
+        <div class="file"><p>{name}</p></div>
+    </div>
+
+</script>
 </body>
 </html>

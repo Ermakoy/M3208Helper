@@ -2,8 +2,8 @@ DATABASES = {
    "default": {
        "ENGINE": "django.db.backends.postgresql_psycopg2",
        "NAME": "m3208helper_db",
-       "USER": "cheshire",
-       "PASSWORD": "g76fbbe9",
+       "USER": "ermakoy",
+       "PASSWORD": "superman",
        "HOST": "localhost",
        "POST": "",
    }
