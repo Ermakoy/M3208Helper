@@ -37,5 +37,16 @@ header {
     height: 700px;
     margin-left: 20%;
     background-color: indigo;
-    opacity: 0.5;
+}
+.file{
+    display: flex;
+    background-image: url("image/item_bcg.jpg");
+    height:50px;
+    margin-bottom:5px;
+    padding: 5px;
+
+}
+.file>p{
+    margin: auto 10px;
+    color: deeppink;
 }
