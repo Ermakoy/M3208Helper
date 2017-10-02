@@ -1,4 +1,4 @@
-$("#GetIt").on("click",function getit() {
+window.onload =function getit() {
     var url_pattern = "http://127.0.0.1:8000/api/get-folder/2";
 
     $.getJSON(url_pattern, function (data) {
@@ -9,4 +9,4 @@ $("#GetIt").on("click",function getit() {
         console.log(question_data);
         console.log(question_data[0]['fields'])
     });
-});
+};
