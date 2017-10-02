@@ -3,11 +3,10 @@
 <html lang="en">
 <head>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <link href="{% static 'css/style.css'%}">
-    <script src="{% static 'js/scripts.js' %}"></script>
-
+    <link rel="stylesheet" href="{% static 'css/style.css'%}">
 </head>
 <body>
+<img src="{% static 'img/28-Молодой самоед.jpg' %}">
     <div class="results">
         <div   id="question" > </div>
         <ul class="answers">
@@ -24,15 +23,10 @@
     console.log(data);
     console.log(data.child_foldres);
     var question_data = $.parseJSON(data.child_foldres);
-    console.log(question_data.child_foldres);
-    console.log(question_data.child_foldres['fields'])
+    console.log(question_data);
+    console.log(question_data[0]['fields'])
 });
 
-
-
 </script>
-
-<link href="{% static 'css/style.css'%}">
 <script src="{% static 'js/scripts.js' %}"></script>
-
 </html>
