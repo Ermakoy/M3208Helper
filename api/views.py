@@ -10,8 +10,19 @@ from django.views.decorators.http import require_http_methods
 @require_http_methods(["GET"])
 def get_root(request):
     folder = Folder.objects.get(parent_folder=None)
+    child_folders = Folder.objects.filter(parent_folder=folder)
+    child_files = File.objects.filter(folder=folder)
+
+    child_folders_serialize = serializers.serialize('json', child_folders)
+    child_files_serialize = serializers.serialize('json', child_files)
     folder_serialize = serializers.serialize('json', [folder])
-    return JsonResponse({'folder': folder_serialize})
+
+    data = {}
+    data['child_foldres'] = child_folders_serialize
+    data['child_files'] = child_files_serialize
+    data['folder'] = folder_serialize
+
+    return JsonResponse(data)
 
 
 # Получить потомков в первом поколении конкретнйо папки по id
