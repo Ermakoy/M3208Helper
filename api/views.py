@@ -100,10 +100,11 @@ def simple_upload(request):
             pass
     return JsonResponse({'status', status})
 
-
+@require_http_methods(["GET"])
 def download_file(request, path):
+    file = File.objects.get(id=int(path))
     response = HttpResponse()
     response['Content-Type'] = ''
-    response['Content-Disposition'] = "attachment; filename=" + path
+    response['Content-Disposition'] = "attachment; filename=" + file.name
     response['X-Sendfile'] = smart_str(os.path.join(MEDIA_ROOT, path))
     return response
