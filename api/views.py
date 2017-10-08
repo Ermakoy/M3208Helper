@@ -28,7 +28,7 @@ def get_root(request):
     return JsonResponse(data)
 
 
-# Получить потомков в первом поколении конкретно папки по id
+# Получить потомков в первом поколении конкретнйо папки по id
 @require_http_methods(["GET"])
 def get_folder(request, id):
     folder = Folder.objects.get(id=id)
