@@ -15,38 +15,63 @@ header {
     width: 500px;
     text-align: center;
     vertical-align: middle;
-    font-size: 60px;
 }
 
 .container {
+    display: grid;
+    grid-template-columns: 300px 1fr;
     height: 100%;
 }
 
 .sidebar {
-    float: left;
-    margin-left: 10px;
-    width: 300px;
-    height: 700px;
-    background-color: tomato;
-    opacity: 0.5;
+    border: 1px solid red;
 }
 
 .content {
-    float: left;
-    width: 570px;
-    height: 700px;
-    margin-left: 20%;
-    background-color: indigo;
+    display: flex;
+    border: 1px solid cadetblue;
 }
-.file{
+
+.file {
     display: flex;
     background-image: url("image/item_bcg.jpg");
-    height:50px;
-    margin-bottom:5px;
+    height: 50px;
+    margin-bottom: 5px;
     padding: 5px;
 
 }
-.file>p{
+
+.file > p {
     margin: auto 10px;
     color: deeppink;
+}
+
+.folder {
+    display: flex;
+    background-image: url("image/item_bcg.jpg");
+    height: 50px;
+    margin-bottom: 5px;
+    padding: 5px;
+
+}
+
+.folder > p {
+    margin: auto 10px;
+    color: deeppink;
+}
+
+.hvr-fade {
+  vertical-align: middle;
+  -webkit-transform: perspective(1px) translateZ(0);
+  transform: perspective(1px) translateZ(0);
+  box-shadow: 0 0 1px transparent;
+  overflow: hidden;
+  -webkit-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  -webkit-transition-property: color, background-color;
+  transition-property: color, background-color;
+}
+.hvr-fade:hover, .hvr-fade:focus, .hvr-fade:active {
+  background-color: #2098D1;
+  color: white;
 }
