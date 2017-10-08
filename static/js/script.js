@@ -33,14 +33,9 @@ $('.sidebar').on('click', '.item', function (event) {
     var url_pattern = "http://127.0.0.1:8000/api/get-folder" + "/" + id;
 
     $.getJSON(url_pattern, function (data) {
-        console.log("OK")
-        console.log(data);
-
         var child_foldersJSON = $.parseJSON(data.child_folders);
+        var child_filesJSON = $.parseJSON(data.child_files);
         var sidebar = $(".sidebar");
-
-        // var filesJSON = $.parseJSON(data.child_files);
-
         sidebar.empty();
         console.log(child_foldersJSON);
 
@@ -49,13 +44,17 @@ $('.sidebar').on('click', '.item', function (event) {
                 name: child_foldersJSON[i]['fields'].name,
                 id: child_foldersJSON[i].pk
             });
-
             sidebar.append(html);
         }
-        //     for (i in filesJSON) {
-        //         html = renderTemplate('files', {
-        //             name: filesJSON[0]['fields'].name
-        //         });
-        //     }
+        var content = $(".content");
+        content.empty();
+            console.log(child_filesJSON);
+            for (i in child_filesJSON) {
+                html = renderTemplate('files', {
+                    name: child_filesJSON[i]['fields'].name,
+                    link: child_filesJSON[i]['fields'].file
+                });
+                content.append(html);
+            }
     });
 });
