@@ -1,5 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, HttpResponse
 from django.http import JsonResponse
+from M3208Helper.settings import MEDIA_ROOT
+import os
+from django.utils.encoding import smart_str
 
 from helper.models import Folder, File
 from django.core import serializers
@@ -18,7 +21,7 @@ def get_root(request):
     folder_serialize = serializers.serialize('json', [folder])
 
     data = {}
-    data['child_foldres'] = child_folders_serialize
+    data['child_folders'] = child_folders_serialize
     data['child_files'] = child_files_serialize
     data['folder'] = folder_serialize
 
@@ -37,7 +40,7 @@ def get_folder(request, id):
     folder_serialize = serializers.serialize('json', [folder])
 
     data = {}
-    data['child_foldres'] = child_folders_serialize
+    data['child_folders'] = child_folders_serialize
     data['child_files'] = child_files_serialize
     data['folder'] = folder_serialize
 
@@ -96,3 +99,11 @@ def simple_upload(request):
         except:
             pass
     return JsonResponse({'status', status})
+
+
+def download_file(request, path):
+    response = HttpResponse()
+    response['Content-Type'] = ''
+    response['Content-Disposition'] = "attachment; filename=" + path
+    response['X-Sendfile'] = smart_str(os.path.join(MEDIA_ROOT, path))
+    return response
