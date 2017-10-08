@@ -21,7 +21,7 @@ def get_root(request):
     folder_serialize = serializers.serialize('json', [folder])
 
     data = {}
-    data['child_foldres'] = child_folders_serialize
+    data['child_folders'] = child_folders_serialize
     data['child_files'] = child_files_serialize
     data['folder'] = folder_serialize
 
@@ -40,7 +40,7 @@ def get_folder(request, id):
     folder_serialize = serializers.serialize('json', [folder])
 
     data = {}
-    data['child_foldres'] = child_folders_serialize
+    data['child_folders'] = child_folders_serialize
     data['child_files'] = child_files_serialize
     data['folder'] = folder_serialize
 
