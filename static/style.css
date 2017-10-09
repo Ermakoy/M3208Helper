@@ -29,14 +29,16 @@ header {
 
 .content {
     display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
     border: 1px solid cadetblue;
 }
 
 .file {
-    display: flex;
-    background-image: url("image/item_bcg.jpg");
-    height: 50px;
-    margin-bottom: 5px;
+    display: inline-block;
+    background-color: white;
+    height: 400px;
+    width: 250px;
     padding: 5px;
 
 }
@@ -48,7 +50,7 @@ header {
 
 .folder {
     display: flex;
-    background-image: url("image/item_bcg.jpg");
+    /*background-image: url("image/item_bcg.jpg");*/
     height: 50px;
     margin-bottom: 5px;
     padding: 5px;

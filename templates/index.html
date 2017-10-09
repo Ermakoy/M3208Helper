@@ -17,10 +17,9 @@
 </div>
 <script src="{% static 'js/script.js' %}"></script>
 <script type="html/tpl" id="files">
-    <div class="item_file">
-        <div class="file"><p>{name}</p></div>
+    <div class="file">
+        <a href="{link}">{name}</a>
     </div>
-
 </script>
 <script type="html/tpl" id="template-folders">
     <div class="item" data-id="{id}">
@@ -28,11 +27,6 @@
     </div>
 
 </script>
-<script type="html/tpl" id="files">
-    <div class="file">
-        <p class="file__name">{name}</p>
-    </div>
 
-</script>
 </body>
 </html>
