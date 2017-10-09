@@ -22,7 +22,12 @@ header {
     grid-template-columns: 300px 1fr;
     height: 100%;
 }
-
+.backspace{
+    background-color: lightgrey;
+    text-align: center;
+    vertical-align: middle;
+    height: 75px;
+}
 .sidebar {
     border: 1px solid red;
 }
@@ -43,9 +48,11 @@ header {
 
 }
 
-.file > p {
-    margin: auto 10px;
+.file > a {
+    display: block;
     color: deeppink;
+    width:inherit;
+    height: inherit;
 }
 
 .folder {

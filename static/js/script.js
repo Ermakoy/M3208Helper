@@ -10,7 +10,7 @@ function renderTemplate(name, data) {
     return template;
 }
 
-$("header").on('click', function () {
+$('header').on('click', function () {
     var url_pattern = "http://127.0.0.1:8000/api/get-root";
 
     $.getJSON(url_pattern, function (data) {
@@ -20,25 +20,34 @@ $("header").on('click', function () {
                 name: foldersJSON[0]['fields'].name,
                 id: foldersJSON[0].pk
             });
-            $('.sidebar').append(html);
+            $('.sidebar__content').append(html);
         }
     });
 });
 
 $('.sidebar').on('click', '.item', function (event) {
-    console.log(event);
-    var element = event.currentTarget;
-    var id = $(element)[0].dataset.id;
-
-    var url_pattern = "http://127.0.0.1:8000/api/get-folder" + "/" + id;
-
+    element = event.currentTarget;
+    id = $(element)[0].dataset.id;
+    render("http://127.0.0.1:8000/api/get-folder/" + id);
+    $('.sidebar').on('click', '.backspace', function () {
+        render("http://127.0.0.1:8000/api/get-folder/" + parentid);
+    });
+});
+// $('.sidebar').on('click', '.backspace', function (event) {
+//     element = event.currentTarget;
+//     id = $(element)[0].dataset.id;
+//     render("http://127.0.0.1:8000/api/get-folder/" + id);
+//     $('.sidebar').on('click', '.backspace', function () {
+//         render("http://127.0.0.1:8000/api/get-folder/" + parentid);
+//     });
+// });
+function render(url_pattern) {
     $.getJSON(url_pattern, function (data) {
         var child_foldersJSON = $.parseJSON(data.child_folders);
         var child_filesJSON = $.parseJSON(data.child_files);
-        var sidebar = $(".sidebar");
+        var sidebar = $(".sidebar__content");
+        parentid = child_foldersJSON[0]['fields'].parent_folder;
         sidebar.empty();
-        console.log(child_foldersJSON);
-
         for (var i in child_foldersJSON) {
             html = renderTemplate('template-folders', {
                 name: child_foldersJSON[i]['fields'].name,
@@ -48,13 +57,13 @@ $('.sidebar').on('click', '.item', function (event) {
         }
         var content = $(".content");
         content.empty();
-            console.log(child_filesJSON);
-            for (i in child_filesJSON) {
-                html = renderTemplate('files', {
-                    name: child_filesJSON[i]['fields'].name,
-                    link: child_filesJSON[i]['fields'].file
-                });
-                content.append(html);
-            }
+        for (i in child_filesJSON) {
+            link = "http://127.0.0.1:8000/api/media/" + child_filesJSON[i].pk;
+            html = renderTemplate('files', {
+                name: child_filesJSON[i]['fields'].name,
+                link: link
+            });
+            content.append(html);
+        }
     });
-});
+}
