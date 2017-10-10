@@ -12,13 +12,13 @@ function renderTemplate(name, data) {
 
 $('header').on('click', function () {
     var url_pattern = "http://127.0.0.1:8000/api/get-root";
-
     $.getJSON(url_pattern, function (data) {
-        var foldersJSON = $.parseJSON(data.folder);
-        for (i in foldersJSON) {
+        var child_foldersJSON = $.parseJSON(data.folder);
+        parentid = child_foldersJSON[0]['fields'].parent_folder;
+        for (i in child_foldersJSON) {
             html = renderTemplate('template-folders', {
-                name: foldersJSON[0]['fields'].name,
-                id: foldersJSON[0].pk
+                name: child_foldersJSON[0]['fields'].name,
+                id: child_foldersJSON[0].pk
             });
             $('.sidebar__content').append(html);
         }
@@ -29,24 +29,18 @@ $('.sidebar').on('click', '.item', function (event) {
     element = event.currentTarget;
     id = $(element)[0].dataset.id;
     render("http://127.0.0.1:8000/api/get-folder/" + id);
-    $('.sidebar').on('click', '.backspace', function () {
-        render("http://127.0.0.1:8000/api/get-folder/" + parentid);
-    });
 });
-// $('.sidebar').on('click', '.backspace', function (event) {
-//     element = event.currentTarget;
-//     id = $(element)[0].dataset.id;
-//     render("http://127.0.0.1:8000/api/get-folder/" + id);
-//     $('.sidebar').on('click', '.backspace', function () {
-//         render("http://127.0.0.1:8000/api/get-folder/" + parentid);
-//     });
-// });
+$('.sidebar').on('click', '.backspace', function () {
+    render("http://127.0.0.1:8000/api/get-folder/" + parentid);
+});
+
 function render(url_pattern) {
     $.getJSON(url_pattern, function (data) {
         var child_foldersJSON = $.parseJSON(data.child_folders);
         var child_filesJSON = $.parseJSON(data.child_files);
+        var folder = $.parseJSON(data.folder);
+        parentid = folder[0]["fields"].parent_folder;
         var sidebar = $(".sidebar__content");
-        parentid = child_foldersJSON[0]['fields'].parent_folder;
         sidebar.empty();
         for (var i in child_foldersJSON) {
             html = renderTemplate('template-folders', {
