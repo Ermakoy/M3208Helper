@@ -4,6 +4,7 @@
 <head>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
     <link rel="stylesheet" href="{% static 'style.css' %}">
     <title>M3208</title>
 </head>
@@ -20,14 +21,15 @@
 <script src="{% static 'js/script.js' %}"></script>
 <script type="html/tpl" id="files">
     <div class="file">
-        <a href="{link}">{name}</a>
+        <a href="{link}"><p class="filename">{name}</p></a>
     </div>
 </script>
 <script type="html/tpl" id="template-folders">
+<div class="filewrapper">
     <div class="item" data-id="{id}">
         <div class="folder hvr-fade" ><p>{name}</p></div>
     </div>
-
+</div>
 </script>
 
 </body>

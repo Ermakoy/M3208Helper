@@ -1,11 +1,10 @@
 body {
-    background: url("image/back.png") no-repeat fixed;
-    background-position: center 0;
+    background: url("image/back.png") no-repeat fixed center 0;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
-    height: 1000px;
+    height: 800px;
 }
 
 header {
@@ -20,48 +19,51 @@ header {
 .container {
     display: grid;
     grid-template-columns: 300px 1fr;
-    height: 100%;
+    grid-gap: 1em;
+    min-height: 500px;
+    width: 800px;
+    margin:auto;
 }
-.backspace{
+
+.backspace {
     background-color: lightgrey;
     text-align: center;
     vertical-align: middle;
     height: 75px;
 }
-.sidebar {
-    border: 1px solid red;
-}
 
 .content {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    border: 1px solid cadetblue;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-gap: 1rem;
 }
 
 .file {
-    display: inline-block;
     background-color: white;
-    height: 400px;
-    width: 250px;
-    padding: 5px;
-
+    height: inherit;
 }
 
-.file > a {
+.file a {
     display: block;
     color: deeppink;
-    width:inherit;
+    width: inherit;
     height: inherit;
+}
+
+.filename {
+    display: block;
+    margin: auto;
+    text-align: center;
+    max-width: 100%;
+    word-wrap: break-word;
 }
 
 .folder {
     display: flex;
-    /*background-image: url("image/item_bcg.jpg");*/
     height: 50px;
     margin-bottom: 5px;
     padding: 5px;
-
 }
 
 .folder > p {
@@ -69,18 +71,9 @@ header {
     color: deeppink;
 }
 
-.hvr-fade {
-  vertical-align: middle;
-  -webkit-transform: perspective(1px) translateZ(0);
-  transform: perspective(1px) translateZ(0);
-  box-shadow: 0 0 1px transparent;
-  overflow: hidden;
-  -webkit-transition-duration: 0.3s;
-  transition-duration: 0.3s;
-  -webkit-transition-property: color, background-color;
-  transition-property: color, background-color;
-}
-.hvr-fade:hover, .hvr-fade:focus, .hvr-fade:active {
-  background-color: #2098D1;
-  color: white;
+@media  screen and (min-width: 1024px) {
+    .container{
+        width: 1000px;
+        height: 700px;
+    }
 }
