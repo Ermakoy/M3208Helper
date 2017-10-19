@@ -4,7 +4,7 @@ body {
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
-    height: 800px;
+    min-height: 800px;
 }
 
 header {
@@ -22,16 +22,23 @@ header {
     grid-gap: 1em;
     min-height: 500px;
     width: 800px;
-    margin:auto;
+    margin: auto;
 }
 
 .backspace {
     background-color: lightgrey;
-    text-align: center;
-    vertical-align: middle;
+    display: flex;
+    flex-flow: row nowrap;
     height: 75px;
 }
-
+.backspaceIcon{
+    display: block;
+    align-self: center;
+    background-image: url("image/backspaceIcon.png");
+    background-size: 15px 15px;
+    width: 15px;
+    height: 15px;
+}
 .content {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
@@ -48,7 +55,7 @@ header {
     display: block;
     color: deeppink;
     width: inherit;
-    height: inherit;
+    height: 100%;
 }
 
 .filename {
@@ -58,22 +65,58 @@ header {
     max-width: 100%;
     word-wrap: break-word;
 }
-
+.folderWrapper{
+    height: 50px;
+}
 .folder {
     display: flex;
-    height: 50px;
-    margin-bottom: 5px;
-    padding: 5px;
+    flex-flow: row nowrap;
+    height: 100%;
+}
+.folderName {
+    display: block;
+    align-self: center;
 }
 
-.folder > p {
-    margin: auto 10px;
-    color: deeppink;
+.folder p {
+    color: #3e4eff;
 }
 
-@media  screen and (min-width: 1024px) {
-    .container{
+.folderIcon {
+    display: block;
+    align-self: center;
+    background-image: url("image/folderIcon.png");
+    background-size: 15px 15px;
+    width: 15px;
+    height: 15px;
+}
+
+.sidebar__content {
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+
+@media screen and (min-width: 1024px) {
+    .container {
         width: 1000px;
         height: 700px;
     }
+}
+
+@media screen and (max-width: 800px) {
+    header {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 420px) {
+    .container {
+        grid-template-rows: 100px 1fr;
+        grid-gap: 1em;
+    }
+
+    .content {
+        grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    }
+
 }

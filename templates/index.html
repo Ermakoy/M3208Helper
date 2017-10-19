@@ -5,6 +5,7 @@
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1" name="viewport">
+    <link rel="stylesheet" href="{% static 'normalize.css' %}">
     <link rel="stylesheet" href="{% static 'style.css' %}">
     <title>M3208</title>
 </head>
@@ -12,7 +13,10 @@
 <header></header>
 <div class="container">
     <div class="sidebar">
-        <div class="backspace">Вернуться назад</div>
+        <div class="backspace">
+            <i class="backspaceIcon"></i>
+            <div class="folderName">Вернуться назад</div>
+        </div>
         <div class="sidebar__content"></div>
     </div>
     <div class="content">
@@ -23,13 +27,16 @@
     <div class="file">
         <a href="{link}"><p class="filename">{name}</p></a>
     </div>
+
 </script>
 <script type="html/tpl" id="template-folders">
-<div class="filewrapper">
-    <div class="item" data-id="{id}">
-        <div class="folder hvr-fade" ><p>{name}</p></div>
+<div class="folderWrapper">
+    <div class="folder" data-id="{id}">
+        <i class="folderIcon"></i>
+        <div class="folderName" >{name}</div>
     </div>
 </div>
+
 </script>
 
 </body>

@@ -1,3 +1,4 @@
+var parentId;//Вова доебался, сказал объявить. Я в душе не ебу нахуй оно тут надо, тут же язык охуительный, тут объявил, там не объявил и всё у тебя классно
 function renderTemplate(name, data) {
     var template = document.getElementById(name).innerHTML;
 
@@ -14,7 +15,7 @@ $('header').on('click', function () {
     var url_pattern = "http://127.0.0.1:8000/api/get-root";
     $.getJSON(url_pattern, function (data) {
         var child_foldersJSON = $.parseJSON(data.folder);
-        parentid = child_foldersJSON[0]['fields'].parent_folder;
+        parentId = child_foldersJSON[0]['fields'].parent_folder;
         for (i in child_foldersJSON) {
             html = renderTemplate('template-folders', {
                 name: child_foldersJSON[0]['fields'].name,
@@ -25,13 +26,13 @@ $('header').on('click', function () {
     });
 });
 
-$('.sidebar').on('click', '.item', function (event) {
+$('.sidebar').on('click', '.folderWrapper', function (event) {
     element = event.currentTarget;
     id = $(element)[0].dataset.id;
     render("http://127.0.0.1:8000/api/get-folder/" + id);
 });
 $('.sidebar').on('click', '.backspace', function () {
-    render("http://127.0.0.1:8000/api/get-folder/" + parentid);
+    render("http://127.0.0.1:8000/api/get-folder/" + parentId);
 });
 
 function render(url_pattern) {
@@ -39,7 +40,7 @@ function render(url_pattern) {
         var child_foldersJSON = $.parseJSON(data.child_folders);
         var child_filesJSON = $.parseJSON(data.child_files);
         var folder = $.parseJSON(data.folder);
-        parentid = folder[0]["fields"].parent_folder;
+        parentId = folder[0]["fields"].parent_folder;
         var sidebar = $(".sidebar__content");
         sidebar.empty();
         for (var i in child_foldersJSON) {
