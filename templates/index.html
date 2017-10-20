@@ -13,10 +13,6 @@
 <header></header>
 <div class="container">
     <div class="sidebar">
-        <div class="backspace">
-            <i class="backspaceIcon"></i>
-            <div class="folderName">Вернуться назад</div>
-        </div>
         <div class="sidebar__content"></div>
     </div>
     <div class="content">
@@ -25,7 +21,9 @@
 <script src="{% static 'js/script.js' %}"></script>
 <script type="html/tpl" id="files">
     <div class="file">
-        <a href="{link}"><p class="filename">{name}</p></a>
+        <div class="fileIcon"></div>
+        <a href="{link}">{name}</a>
+        <div class="publishDate">Был загружен: {date}</div>
     </div>
 
 </script>
@@ -38,6 +36,5 @@
 </div>
 
 </script>
-
 </body>
 </html>

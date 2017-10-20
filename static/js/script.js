@@ -1,4 +1,4 @@
-var parentId;//Вова доебался, сказал объявить. Я в душе не ебу нахуй оно тут надо, тут же язык охуительный, тут объявил, там не объявил и всё у тебя классно
+var parentId;
 function renderTemplate(name, data) {
     var template = document.getElementById(name).innerHTML;
 
@@ -24,9 +24,13 @@ $('header').on('click', function () {
             $('.sidebar__content').append(html);
         }
     });
+    $('.sidebar').prepend("<div class=\"backspace\">\n" +
+        "            <i class=\"backspaceIcon\"></i>\n" +
+        "            <div class=\"folderName\">Вернуться назад</div>\n" +
+        "        </div>")
 });
 
-$('.sidebar').on('click', '.folderWrapper', function (event) {
+$('.sidebar').on('click', '.folder', function (event) {
     element = event.currentTarget;
     id = $(element)[0].dataset.id;
     render("http://127.0.0.1:8000/api/get-folder/" + id);
@@ -52,11 +56,14 @@ function render(url_pattern) {
         }
         var content = $(".content");
         content.empty();
+        console.log(child_filesJSON)
         for (i in child_filesJSON) {
             link = "http://127.0.0.1:8000/api/media/" + child_filesJSON[i].pk;
+            date = child_filesJSON[i]['fields'].date_creation;
             html = renderTemplate('files', {
                 name: child_filesJSON[i]['fields'].name,
-                link: link
+                link: link,
+                date: date
             });
             content.append(html);
         }
