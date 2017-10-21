@@ -1,4 +1,12 @@
-var parentId,rootId;
+var parentId, rootId;
+
+function setBackspace() {
+    $('.sidebar').prepend("<div class=\"backspace\">\n" +
+        "            <i class=\"backspaceIcon\"></i>\n" +
+        "            <div class=\"folderName\">Вернуться назад</div>\n" +
+        "        </div>")
+}
+
 function renderTemplate(name, data) {
     var template = document.getElementById(name).innerHTML;
 
@@ -11,28 +19,32 @@ function renderTemplate(name, data) {
     return template;
 }
 
-$(document).ready(function () {
-    var url_pattern = "http://127.0.0.1:8000/api/get-root";
-    $.getJSON(url_pattern, function (data) {
-        var child_foldersJSON = $.parseJSON(data.folder);
-        rootId=child_foldersJSON[0].pk;
-        url_pattern = "http://127.0.0.1:8000/api/get-folder" + rootId;
-        parentId = child_foldersJSON[0]['fields'].parent_folder;
-        $('.sidebar').prepend("<div class=\"backspace\">\n" +
-        "            <i class=\"backspaceIcon\"></i>\n" +
-        "            <div class=\"folderName\">Вернуться назад</div>\n" +
-        "        </div>")
-    });
-    render(url_pattern);
-});
+function getParameterByName(name, url) {
+    if (!url) url = window.location.href;
+    name = name.replace(/[\[\]]/g, "\\$&");
+    var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+        results = regex.exec(url);
+    if (!results) return null;
+    if (!results[2]) return '';
+    return decodeURIComponent(results[2].replace(/\+/g, " "));
+}
 
-$('.sidebar').on('click', '.folder', function (event) {
-    element = event.currentTarget;
-    id = $(element)[0].dataset.id;
-    render("http://127.0.0.1:8000/api/get-folder/" + id);
-});
-$('.sidebar').on('click', '.backspace', function () {
-    render("http://127.0.0.1:8000/api/get-folder/" + parentId);
+$(document).ready(function () {
+    var queryParam = getParameterByName('folder');
+    if (queryParam === "") {
+        var url_pattern = "http://127.0.0.1:8000/api/get-root";
+        $.getJSON(url_pattern, function (data) {
+            var child_foldersJSON = $.parseJSON(data.folder);
+            rootId = child_foldersJSON[0].pk;
+            url_pattern = "http://127.0.0.1:8000/api/get-folder" + rootId;
+            parentId = child_foldersJSON[0]['fields'].parent_folder;
+            setBackspace();
+        });
+        render(url_pattern);
+    } else {
+        url_pattern = "http://127.0.0.1:8000/api/get-folder/" + queryParam.substr(1, queryParam.length - 2);
+        render(url_pattern);
+    }
 });
 
 function render(url_pattern) {
@@ -62,12 +74,24 @@ function render(url_pattern) {
             });
             content.append(html);
         }
-        if (folder[0].pk===rootId){
-            $('.backspace').css("display","none");
+        if (folder[0].pk === rootId) {
+            $('.backspace').css("display", "none");
         }
-        else
-        {
-           $('.backspace').css("display","flex");
+        else {
+            if ($('.backspace').length) {
+                $('.backspace').css("display", "flex");
+            } else {
+                setBackspace();
+            }
         }
     });
 }
+
+$('.sidebar').on('click', '.folder', function (event) {
+    element = event.currentTarget;
+    id = $(element)[0].dataset.id;
+    render("http://127.0.0.1:8000/api/get-folder/" + id);
+});
+$('.sidebar').on('click', '.backspace', function () {
+    render("http://127.0.0.1:8000/api/get-folder/" + parentId);
+});
