@@ -1,11 +1,11 @@
 body {
-    background: url("image/back.png") no-repeat fixed;
-    background-position: center 0;
+    padding: 7px;
+    background: url("image/back.png") no-repeat fixed center 0;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
-    height: 1000px;
+    min-height: 800px;
 }
 
 header {
@@ -15,38 +15,110 @@ header {
     width: 500px;
     text-align: center;
     vertical-align: middle;
-    font-size: 60px;
 }
 
 .container {
-    height: 100%;
+    display: flex;
+    min-height: 500px;
 }
 
-.sidebar {
-    float: left;
-    margin-left: 10px;
-    width: 300px;
-    height: 700px;
-    background-color: tomato;
-    opacity: 0.5;
+.backspace {
+    background-color: lightgrey;
+    display: flex;
+    flex-flow: row nowrap;
+    height: 75px;
+}
+
+.backspaceIcon {
+    display: block;
+    align-self: center;
+    background-image: url("image/backspaceIcon.png");
+    background-size: 15px 15px;
+    width: 15px;
+    height: 15px;
 }
 
 .content {
-    float: left;
-    width: 570px;
-    height: 700px;
-    margin-left: 20%;
-    background-color: indigo;
-}
-.file{
     display: flex;
-    background-image: url("image/item_bcg.jpg");
-    height:50px;
-    margin-bottom:5px;
-    padding: 5px;
-
+    flex: 9;
+    padding-left: 15px;
+    justify-content: flex-start;
+    flex-direction: row;
+    align-items: flex-start;
+    flex-wrap: wrap;
 }
-.file>p{
-    margin: auto 10px;
-    color: deeppink;
+
+.file {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: inherit;
+
+    margin: 0 15px 15px 0;
+}
+
+.fileIcon {
+    background: url("image/fileIcon.png") no-repeat;
+    width: 128px;
+    height: 128px;
+    flex-basis: content;
+}
+
+.filename {
+    display: block;
+    margin: auto;
+    text-align: center;
+    max-width: 100%;
+    word-wrap: break-word;
+}
+
+.folderWrapper {
+    height: 50px;
+}
+
+.folder {
+    display: flex;
+    flex-flow: row nowrap;
+    height: 100%;
+}
+
+.folderName {
+    display: block;
+    align-self: center;
+}
+
+.folder p {
+    color: #3e4eff;
+}
+
+.folderIcon {
+    display: block;
+    align-self: center;
+    background-image: url("image/folderIcon.png");
+    background-size: 15px 15px;
+    width: 15px;
+    height: 15px;
+}
+
+.sidebar {
+    flex: 0 0.5 300px;
+}
+
+@media screen and (max-width: 500px) {
+    header {
+        display: none;
+    }
+
+    .container {
+        flex-direction: column;
+    }
+
+    .content {
+        justify-content: space-between;
+        padding: 0;
+    }
+    .file{
+        margin-right: 0;
+    }
 }

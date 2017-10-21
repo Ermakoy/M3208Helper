@@ -1,3 +1,4 @@
+var parentId,rootId;
 function renderTemplate(name, data) {
     var template = document.getElementById(name).innerHTML;
 
@@ -10,23 +11,63 @@ function renderTemplate(name, data) {
     return template;
 }
 
-window.onload = function () {
-    var url_pattern = "http://127.0.0.1:8000/api/get-folder/2";
-
+$(document).ready(function () {
+    var url_pattern = "http://127.0.0.1:8000/api/get-root";
     $.getJSON(url_pattern, function (data) {
+        var child_foldersJSON = $.parseJSON(data.folder);
+        rootId=child_foldersJSON[0].pk;
+        url_pattern = "http://127.0.0.1:8000/api/get-folder" + rootId;
+        parentId = child_foldersJSON[0]['fields'].parent_folder;
+        $('.sidebar').prepend("<div class=\"backspace\">\n" +
+        "            <i class=\"backspaceIcon\"></i>\n" +
+        "            <div class=\"folderName\">Вернуться назад</div>\n" +
+        "        </div>")
+    });
+    render(url_pattern);
+});
 
-        console.log(data);
-        console.log(data.child_foldres);
-        var question_data = $.parseJSON(data.child_foldres);
-        console.log(question_data);
-        console.log(question_data[0]['fields']);
-        var filesJSON = $.parseJSON(data.child_files);
-        for (i in filesJSON) {
+$('.sidebar').on('click', '.folder', function (event) {
+    element = event.currentTarget;
+    id = $(element)[0].dataset.id;
+    render("http://127.0.0.1:8000/api/get-folder/" + id);
+});
+$('.sidebar').on('click', '.backspace', function () {
+    render("http://127.0.0.1:8000/api/get-folder/" + parentId);
+});
+
+function render(url_pattern) {
+    $.getJSON(url_pattern, function (data) {
+        var child_foldersJSON = $.parseJSON(data.child_folders);
+        var child_filesJSON = $.parseJSON(data.child_files);
+        var folder = $.parseJSON(data.folder);
+        parentId = folder[0]["fields"].parent_folder;
+        var sidebarContent = $(".sidebar__content");
+        sidebarContent.empty();
+        for (var i in child_foldersJSON) {
+            html = renderTemplate('template-folders', {
+                name: child_foldersJSON[i]['fields'].name,
+                id: child_foldersJSON[i].pk
+            });
+            sidebarContent.append(html);
+        }
+        var content = $(".content");
+        content.empty();
+        for (i in child_filesJSON) {
+            link = "http://127.0.0.1:8000/api/media/" + child_filesJSON[i].pk;
+            date = child_filesJSON[i]['fields'].date_creation;
             html = renderTemplate('files', {
-                name: filesJSON[i]['fields'].name
-            })
-            $('.content').append(html);
+                name: child_filesJSON[i]['fields'].name,
+                link: link,
+                date: date
+            });
+            content.append(html);
+        }
+        if (folder[0].pk===rootId){
+            $('.backspace').css("display","none");
+        }
+        else
+        {
+           $('.backspace').css("display","flex");
         }
     });
-
-};
+}

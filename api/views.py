@@ -53,7 +53,7 @@ def get_root(request):
     return JsonResponse(data)
 
 
-# Получить потомков в первом поколении конкретнйо папки по id
+# Получить потомков в первом поколении конкретно папки по id
 @require_http_methods(["GET"])
 def get_folder(request, id):
     folder = Folder.objects.get(id=id)
@@ -128,8 +128,9 @@ def simple_upload(request):
 @require_http_methods(["GET"])
 def download_file(request, path):
     file = File.objects.get(id=int(path))
-    response = HttpResponse()
-    response['Content-Type'] = ''
-    response['Content-Disposition'] = "attachment; filename=" + file.name
-    response['X-Sendfile'] = smart_str(os.path.join(MEDIA_ROOT, path))
-    return response
+
+    with open(file.file.path, 'rb') as file_op:
+        response = HttpResponse(file_op.read())
+        response['Content-Disposition'] = "attachment; filename=" + file.name
+        # response['X-Sendfile'] = smart_str(os.path.join(MEDIA_ROOT, path))
+        return response
