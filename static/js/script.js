@@ -31,7 +31,8 @@ function getParameterByName(name, url) {
 
 $(document).ready(function () {
     var queryParam = getParameterByName('folder');
-    if (queryParam === "") {
+    console.log(queryParam)
+    if (queryParam === null) {
         var url_pattern = "http://127.0.0.1:8000/api/get-root";
         $.getJSON(url_pattern, function (data) {
             var child_foldersJSON = $.parseJSON(data.folder);

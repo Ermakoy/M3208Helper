@@ -28,7 +28,9 @@ header {
     flex-flow: row nowrap;
     height: 75px;
 }
-
+.backspace:hover{
+    cursor: pointer;
+}
 .backspaceIcon {
     display: block;
     align-self: center;
@@ -76,7 +78,9 @@ header {
 .folderWrapper {
     height: 50px;
 }
-
+.folderWrapper:hover{
+    cursor: pointer;
+}
 .folder {
     display: flex;
     flex-flow: row nowrap;
