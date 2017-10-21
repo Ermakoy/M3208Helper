@@ -40,10 +40,8 @@ $(document).ready(function () {
     if (queryParam === null) {
         var url_pattern = "http://127.0.0.1:8000/api/get-root";
         $.getJSON(url_pattern, function (data) {
-            var child_foldersJSON = $.parseJSON(data.folder);
-            rootId = child_foldersJSON[0].pk;
-            url_pattern = "http://127.0.0.1:8000/api/get-folder" + rootId;
-            parentId = child_foldersJSON[0]['fields'].parent_folder;
+            currentFolder = new FolderClass(null,$.parseJSON(data.child_files),$.parseJSON(data.folder));
+            url_pattern = "http://127.0.0.1:8000/api/get-folder" + currentFolder.self.pk;
             setBackspace();
         });
         render(url_pattern);
@@ -55,7 +53,7 @@ $(document).ready(function () {
 
 function render(url_pattern) {
     $.getJSON(url_pattern, function (data) {
-        currentFolder = new FolderClass($.parseJSON(data.child_folders),$.parseJSON(data.child_files),$.parseJSON(data.folder))
+        currentFolder = new FolderClass($.parseJSON(data.child_folders),$.parseJSON(data.child_files),$.parseJSON(data.folder));
         var sidebarContent = $(".sidebar__content");
         sidebarContent.empty();
         for (var i in currentFolder.childFolders) {
