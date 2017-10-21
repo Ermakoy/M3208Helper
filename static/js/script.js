@@ -1,5 +1,10 @@
 var parentId, rootId;
-
+function FolderClass(childFolders,childFiles,self) {
+    this.parentFolderID=self[0]["fields"].parent_folder;
+    this.childFolders=childFolders;
+    this.childFiles=childFiles;
+    this.self=self[0];
+}
 function setBackspace() {
     $('.sidebar').prepend("<div class=\"backspace\">\n" +
         "            <i class=\"backspaceIcon\"></i>\n" +
@@ -50,32 +55,27 @@ $(document).ready(function () {
 
 function render(url_pattern) {
     $.getJSON(url_pattern, function (data) {
-        var child_foldersJSON = $.parseJSON(data.child_folders);
-        var child_filesJSON = $.parseJSON(data.child_files);
-        var folder = $.parseJSON(data.folder);
-        parentId = folder[0]["fields"].parent_folder;
+        currentFolder = new FolderClass($.parseJSON(data.child_folders),$.parseJSON(data.child_files),$.parseJSON(data.folder))
         var sidebarContent = $(".sidebar__content");
         sidebarContent.empty();
-        for (var i in child_foldersJSON) {
+        for (var i in currentFolder.childFolders) {
             html = renderTemplate('template-folders', {
-                name: child_foldersJSON[i]['fields'].name,
-                id: child_foldersJSON[i].pk
+                name: currentFolder.childFolders[i]['fields'].name,
+                id: currentFolder.childFolders[i].pk
             });
             sidebarContent.append(html);
         }
         var content = $(".content");
         content.empty();
-        for (i in child_filesJSON) {
-            link = "http://127.0.0.1:8000/api/media/" + child_filesJSON[i].pk;
-            date = child_filesJSON[i]['fields'].date_creation;
+        for (i in currentFolder.childFiles) {
             html = renderTemplate('files', {
-                name: child_filesJSON[i]['fields'].name,
-                link: link,
-                date: date
+                name: currentFolder.childFiles[i]['fields'].name,
+                link: "http://127.0.0.1:8000/api/media/" + currentFolder.childFiles[i].pk,
+                date: currentFolder.childFiles[i]['fields'].date_creation
             });
             content.append(html);
         }
-        if (folder[0].pk === rootId) {
+        if (currentFolder.self.pk === rootId) {
             $('.backspace').css("display", "none");
         }
         else {
@@ -85,7 +85,7 @@ function render(url_pattern) {
                 setBackspace();
             }
         }
-        history.pushState(null, null, "?folder=\"" + folder[0].pk + "\"");
+        history.pushState(null, null, "?folder=\"" + currentFolder.self.pk + "\"");
     });
 }
 
@@ -95,5 +95,5 @@ $('.sidebar').on('click', '.folder', function (event) {
     render("http://127.0.0.1:8000/api/get-folder/" + id);
 });
 $('.sidebar').on('click', '.backspace', function () {
-    render("http://127.0.0.1:8000/api/get-folder/" + parentId);
+    render("http://127.0.0.1:8000/api/get-folder/" + currentFolder.parentFolderID);
 });
