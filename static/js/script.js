@@ -10,8 +10,7 @@ function renderTemplate(name, data) {
     }
     return template;
 }
-
-$('header').on('click', function () {
+$(document).ready(function () {
     var url_pattern = "http://127.0.0.1:8000/api/get-root";
     $.getJSON(url_pattern, function (data) {
         var child_foldersJSON = $.parseJSON(data.folder);
