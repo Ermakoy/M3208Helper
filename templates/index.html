@@ -4,6 +4,8 @@
 <head>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <link rel="stylesheet" href="{% static 'normalize.css' %}">
     <link rel="stylesheet" href="{% static 'style.css' %}">
     <title>M3208</title>
 </head>
@@ -11,27 +13,27 @@
 <header></header>
 <div class="container">
     <div class="sidebar">
+        <div class="sidebar__content"></div>
     </div>
     <div class="content">
     </div>
 </div>
 <script src="{% static 'js/script.js' %}"></script>
 <script type="html/tpl" id="files">
-    <div class="item_file">
-        <div class="file"><p>{name}</p></div>
+    <div class="file">
+        <div class="fileIcon"></div>
+        <a href="{link}">{name}</a>
+        <div class="publishDate">Был загружен: {date}</div>
     </div>
 
 </script>
 <script type="html/tpl" id="template-folders">
-    <div class="item" data-id="{id}">
-        <div class="folder hvr-fade" ><p>{name}</p></div>
+<div class="folderWrapper">
+    <div class="folder" data-id="{id}">
+        <i class="folderIcon"></i>
+        <div class="folderName" >{name}</div>
     </div>
-
-</script>
-<script type="html/tpl" id="files">
-    <div class="file">
-        <p class="file__name">{name}</p>
-    </div>
+</div>
 
 </script>
 </body>
