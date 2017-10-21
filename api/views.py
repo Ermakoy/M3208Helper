@@ -5,71 +5,80 @@ import os
 from django.utils.encoding import smart_str
 
 from helper.models import Folder, File
+from django import http
 from django.core import serializers
+from django.views.generic import View
 from django.views.decorators.http import require_http_methods
-from django.views.generic import TemplateView, DetailView
-
 
 
 class JSONResponseMixin(object):
-    """
-    A mixin that can be used to render a JSON response.
-    """
+    allowed_methods = ['GET']
+
     def render_to_json_response(self, context, **response_kwargs):
-        """
-        Returns a JSON response, transforming 'context' to make the payload.
-        """
+        if not self.check_allowed_methods(self.request):
+            http.HttpResponseNotAllowed()
+
         return JsonResponse(
             self.get_data(context),
             **response_kwargs
         )
 
+    def get_data(self, **kwargs):
+        return kwargs
+
+    def check_allowed_methods (self, request):
+        bool = False
+        if request.method in self.allowed_methods:
+            bool = True
+        return bool
+
+
+class GetFolderDataMixin(object):
+
     def get_data(self, context):
-        """
-        Returns an object that will be serialized as JSON by json.dumps().
-        """
 
-        return context
+        try:
+            folder = Folder.objects.get(id=context['id'])
+        except:
+            folder = Folder.objects.get(parent_folder=None)
 
-class JSONResponseView(JSONResponseMixin, DetailView):
+        child_folders = Folder.objects.filter(parent_folder=folder)
+        child_files = File.objects.filter(folder=folder)
 
+        child_folders_serialize = serializers.serialize('json', child_folders)
+        child_files_serialize = serializers.serialize('json', child_files)
+        folder_serialize = serializers.serialize('json', [folder])
 
-# Получить root папку и её потомков в первом поколении
-@require_http_methods(["GET"])
-def get_root(request):
-    folder = Folder.objects.get(parent_folder=None)
-    child_folders = Folder.objects.filter(parent_folder=folder)
-    child_files = File.objects.filter(folder=folder)
+        data = dict()
+        data['child_folders'] = child_folders_serialize
+        data['child_files'] = child_files_serialize
+        data['folder'] = folder_serialize
 
-    child_folders_serialize = serializers.serialize('json', child_folders)
-    child_files_serialize = serializers.serialize('json', child_files)
-    folder_serialize = serializers.serialize('json', [folder])
-
-    data = {}
-    data['child_folders'] = child_folders_serialize
-    data['child_files'] = child_files_serialize
-    data['folder'] = folder_serialize
-
-    return JsonResponse(data)
+        return data
 
 
-# Получить потомков в первом поколении конкретно папки по id
-@require_http_methods(["GET"])
-def get_folder(request, id):
-    folder = Folder.objects.get(id=id)
-    child_folders = Folder.objects.filter(parent_folder=id)
-    child_files = File.objects.filter(folder=id)
+class JSONResponseFolderView(GetFolderDataMixin, JSONResponseMixin):
+    pass
 
-    child_folders_serialize = serializers.serialize('json', child_folders)
-    child_files_serialize = serializers.serialize('json', child_files)
-    folder_serialize = serializers.serialize('json', [folder])
 
-    data = {}
-    data['child_folders'] = child_folders_serialize
-    data['child_files'] = child_files_serialize
-    data['folder'] = folder_serialize
 
-    return JsonResponse(data)
+# # Получить потомков в первом поколении конкретно папки по id
+# @require_http_methods(["GET"])
+# def get_folder(request, id):
+#     folder = Folder.objects.get(id=id)
+#     child_folders = Folder.objects.filter(parent_folder=id)
+#     child_files = File.objects.filter(folder=id)
+#
+#     child_folders_serialize = serializers.serialize('json', child_folders)
+#     child_files_serialize = serializers.serialize('json', child_files)
+#     folder_serialize = serializers.serialize('json', [folder])
+#
+#     data = {}
+#     data['child_folders'] = child_folders_serialize
+#     data['child_files'] = child_files_serialize
+#     data['folder'] = folder_serialize
+#
+#     return JsonResponse(data)
 
 
 @require_http_methods(["POST"])
