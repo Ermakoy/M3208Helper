@@ -85,6 +85,7 @@ function render(url_pattern) {
                 setBackspace();
             }
         }
+        history.pushState(null, null, "?folder=\"" + folder[0].pk + "\"");
     });
 }
 
