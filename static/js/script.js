@@ -1,5 +1,3 @@
-var parentId, rootId;
-
 function FolderClass(childFolders, childFiles, self) {
     this.parentFolderID = self[0]["fields"].parent_folder;
     this.childFolders = childFolders;
@@ -37,18 +35,22 @@ function getParameterByName(name, url) {
 }
 
 $(document).ready(function () {
-    var queryParam = getParameterByName('folder');
-    if (queryParam === null) {
+    var folderParam = getParameterByName('folder');
+    var fileParam = getParameterByName('file');
+    if (folderParam === null) {
         var url_pattern = "http://127.0.0.1:8000/api/get-root";
         $.getJSON(url_pattern, function (data) {
             currentFolder = new FolderClass(null, $.parseJSON(data.child_files), $.parseJSON(data.folder));
-            rootId = currentFolder.self.pk;
-            url_pattern = "http://127.0.0.1:8000/api/get-folder/" + rootId;
+            url_pattern = "http://127.0.0.1:8000/api/get-folder/" + currentFolder.self.pk;
             setBackspace();
         });
         render(url_pattern);
     } else {
-        url_pattern = "http://127.0.0.1:8000/api/get-folder/" + queryParam.substr(1, queryParam.length - 2);
+        if (fileParam===null) {
+            url_pattern = "http://127.0.0.1:8000/api/get-folder/" + folderParam.substr(1, folderParam.length - 2);
+        }else{
+
+        }
         render(url_pattern);
     }
 });
@@ -76,7 +78,7 @@ function render(url_pattern) {
             });
             content.append(html);
         }
-        if (currentFolder.self.pk === rootId) {
+        if (currentFolder.parentFolderID===null) {
             $('.backspace').css("display", "none");
         }
         else {
