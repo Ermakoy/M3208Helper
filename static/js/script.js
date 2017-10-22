@@ -1,10 +1,12 @@
 var parentId, rootId;
-function FolderClass(childFolders,childFiles,self) {
-    this.parentFolderID=self[0]["fields"].parent_folder;
-    this.childFolders=childFolders;
-    this.childFiles=childFiles;
-    this.self=self[0];
+
+function FolderClass(childFolders, childFiles, self) {
+    this.parentFolderID = self[0]["fields"].parent_folder;
+    this.childFolders = childFolders;
+    this.childFiles = childFiles;
+    this.self = self[0];
 }
+
 function setBackspace() {
     $('.sidebar').prepend("<div class=\"backspace\">\n" +
         "            <i class=\"backspaceIcon\"></i>\n" +
@@ -36,12 +38,12 @@ function getParameterByName(name, url) {
 
 $(document).ready(function () {
     var queryParam = getParameterByName('folder');
-    console.log(queryParam)
     if (queryParam === null) {
         var url_pattern = "http://127.0.0.1:8000/api/get-root";
         $.getJSON(url_pattern, function (data) {
-            currentFolder = new FolderClass(null,$.parseJSON(data.child_files),$.parseJSON(data.folder));
-            url_pattern = "http://127.0.0.1:8000/api/get-folder" + currentFolder.self.pk;
+            currentFolder = new FolderClass(null, $.parseJSON(data.child_files), $.parseJSON(data.folder));
+            rootId = currentFolder.self.pk;
+            url_pattern = "http://127.0.0.1:8000/api/get-folder/" + rootId;
             setBackspace();
         });
         render(url_pattern);
@@ -53,9 +55,12 @@ $(document).ready(function () {
 
 function render(url_pattern) {
     $.getJSON(url_pattern, function (data) {
-        currentFolder = new FolderClass($.parseJSON(data.child_folders),$.parseJSON(data.child_files),$.parseJSON(data.folder));
+        currentFolder = new FolderClass($.parseJSON(data.child_folders), $.parseJSON(data.child_files), $.parseJSON(data.folder));
+        console.log(currentFolder.childFiles);
         var sidebarContent = $(".sidebar__content");
+        var content = $(".content");
         sidebarContent.empty();
+        content.empty();
         for (var i in currentFolder.childFolders) {
             html = renderTemplate('template-folders', {
                 name: currentFolder.childFolders[i]['fields'].name,
@@ -63,8 +68,6 @@ function render(url_pattern) {
             });
             sidebarContent.append(html);
         }
-        var content = $(".content");
-        content.empty();
         for (i in currentFolder.childFiles) {
             html = renderTemplate('files', {
                 name: currentFolder.childFiles[i]['fields'].name,
