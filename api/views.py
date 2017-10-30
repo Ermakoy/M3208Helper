@@ -1,84 +1,46 @@
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import HttpResponse
 from django.http import JsonResponse
-from M3208Helper.settings import MEDIA_ROOT
-import os
-from django.utils.encoding import smart_str
+from django.views.decorators.http import require_http_methods
+from django.views.generic.detail import BaseDetailView
+from django.core import serializers
 
 from helper.models import Folder, File
-from django import http
-from django.core import serializers
-from django.views.generic import View
-from django.views.decorators.http import require_http_methods
+
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
-class JSONResponseMixin(object):
-    allowed_methods = ['GET']
-
-    def render_to_json_response(self, context, **response_kwargs):
-        if not self.check_allowed_methods(self.request):
-            http.HttpResponseNotAllowed()
-
-        return JsonResponse(
-            self.get_data(context),
-            **response_kwargs
-        )
-
-    def get_data(self, **kwargs):
-        return kwargs
-
-    def check_allowed_methods (self, request):
-        bool = False
-        if request.method in self.allowed_methods:
-            bool = True
-        return bool
+from .mixins import JSONResponseMixin , GetFolderMixin
 
 
-class GetFolderDataMixin(object):
+class JSONDetailView(JSONResponseMixin, BaseDetailView):
+    def get(self, request, *args, **kwargs):
+        return self.render_to_response(*args, **kwargs)
 
-    def get_data(self, context):
+    def render_to_response(self, *args, **response_kwargs):
+        return self.render_to_json_response(*args, **response_kwargs)
 
+
+class JSONResponseFolderView(JSONDetailView):
+    def get(self, *args, **kwargs):
         try:
-            folder = Folder.objects.get(id=context['id'])
+            folder = Folder.objects.get(id=int(kwargs['id']))
         except:
             folder = Folder.objects.get(parent_folder=None)
 
-        child_folders = Folder.objects.filter(parent_folder=folder)
+        child_folders = Folder.objects.filter(parent_folder=folder.id)
         child_files = File.objects.filter(folder=folder)
 
         child_folders_serialize = serializers.serialize('json', child_folders)
         child_files_serialize = serializers.serialize('json', child_files)
         folder_serialize = serializers.serialize('json', [folder])
 
-        data = dict()
+        data = {}
         data['child_folders'] = child_folders_serialize
         data['child_files'] = child_files_serialize
         data['folder'] = folder_serialize
 
-        return data
+        return self.render_to_response(*args, **data)
 
-
-class JSONResponseFolderView(GetFolderDataMixin, JSONResponseMixin):
-    pass
-
-
-
-# # Получить потомков в первом поколении конкретно папки по id
-# @require_http_methods(["GET"])
-# def get_folder(request, id):
-#     folder = Folder.objects.get(id=id)
-#     child_folders = Folder.objects.filter(parent_folder=id)
-#     child_files = File.objects.filter(folder=id)
-#
-#     child_folders_serialize = serializers.serialize('json', child_folders)
-#     child_files_serialize = serializers.serialize('json', child_files)
-#     folder_serialize = serializers.serialize('json', [folder])
-#
-#     data = {}
-#     data['child_folders'] = child_folders_serialize
-#     data['child_files'] = child_files_serialize
-#     data['folder'] = folder_serialize
-#
-#     return JsonResponse(data)
 
 
 @require_http_methods(["POST"])
