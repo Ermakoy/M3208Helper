@@ -1,6 +1,7 @@
-from .views import get_html
-from django.conf.urls import url, include
+from django.conf.urls import url
+
+from .views import IndexView
 
 urlpatterns = [
-    url(r'^$', view=get_html),
+    url(r'^$', IndexView.as_view()),
 ]

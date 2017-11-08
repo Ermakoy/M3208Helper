@@ -10,6 +10,12 @@
     <title>M3208</title>
 </head>
 <body>
+<div style="display: block; border: red double 1px; padding: 5px">
+    <form enctype="multipart/form-data" action="" method="post">{% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="{{ button_name }}" />
+    </form>
+</div>
 <header></header>
 <div class="container">
     <div class="sidebar">
@@ -18,6 +24,8 @@
     <div class="content">
     </div>
 </div>
+
+
 <script src="{% static 'js/script.js' %}"></script>
 <script type="html/tpl" id="files">
     <div class="file">

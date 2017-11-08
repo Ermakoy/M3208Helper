@@ -1,15 +1,10 @@
 from django.shortcuts import HttpResponse
-from django.http import JsonResponse
 from django.views.decorators.http import require_http_methods
 from django.views.generic.detail import BaseDetailView
 from django.core import serializers
 
 from helper.models import Folder, File
-
-from django.contrib.auth.mixins import LoginRequiredMixin
-
-
-from .mixins import JSONResponseMixin , GetFolderMixin
+from .mixins import JSONResponseMixin, JSONLoginRequiredMixin
 
 
 class JSONDetailView(JSONResponseMixin, BaseDetailView):
@@ -34,7 +29,7 @@ class JSONResponseFolderView(JSONDetailView):
         child_files_serialize = serializers.serialize('json', child_files)
         folder_serialize = serializers.serialize('json', [folder])
 
-        data = {}
+        data = dict()
         data['child_folders'] = child_folders_serialize
         data['child_files'] = child_files_serialize
         data['folder'] = folder_serialize
@@ -42,59 +37,60 @@ class JSONResponseFolderView(JSONDetailView):
         return self.render_to_response(*args, **data)
 
 
+class JSONAppendFolderView(JSONDetailView):
+    def get(self, request, *args, **kwargs):
+        kwargs = request.GET
+        try:
+            name = kwargs.get('name')
+            parent_folder = Folder.objects.get(id=int(kwargs.get('parent_folder')))
 
-@require_http_methods(["POST"])
-def append_folder(request):
-    kwargs = request.GET
-    try:
-        folder = Folder(
-            name=kwargs.get('name'),
-            parent_folder=Folder.objects.get(id=int(kwargs.get('parent_folder')))
-        )
-        folder.save()
-        status = "OK"
-    except:
-        status = "ERROR"
-
-    return JsonResponse({'status': status})
+            folder = Folder(
+                name=name,
+                parent_folder=parent_folder
+            )
+            folder.save()
+        except:
+            self.render_to_response(**{'status': 'error'})
+        return self.render_to_response(**{'status': 'ok'})
 
 
 @require_http_methods(["POST"])
 def change_name_folder(request):
-    try:
-        new_name = request.GET.get('name')
-        id = int(request.GET.get('id'))
-        folder = Folder.objects.get(id=id)
-        folder.name = new_name
-        folder.save()
-        status = "OK"
-    except:
-        status = "ERROR"
+    pass
+    # try:
+    #     new_name = request.GET.get('name')
+    #     id = int(request.GET.get('id'))
+    #     folder = Folder.objects.get(id=id)
+    #     folder.name = new_name
+    #     folder.save()
+    #     status = "OK"
+    # except:
+    #     status = "ERROR"
+    #
+    # return status
 
-    return status
-
-
-@require_http_methods(["POST"])
-def simple_upload(request):
-    status = "ERROR"
-    if request.FILES['file_input']:
-        try:
-            file_input = request.FILES['file_input']
-            name = request.GET.get('name')
-            try:
-                description = request.GET.get('description')
-            except:
-                description = ""
-            file = File(
-                name=name,
-                file=file_input,
-                description=description,
-            )
-            file.save()
-            status = "OK"
-        except:
-            pass
-    return JsonResponse({'status', status})
+#
+# @require_http_methods(["POST"])
+# def simple_upload(request):
+#     status = "ERROR"
+#     if request.FILES['file_input']:
+#         try:
+#             file_input = request.FILES['file_input']
+#             name = request.GET.get('name')
+#             try:
+#                 description = request.GET.get('description')
+#             except:
+#                 description = ""
+#             file = File(
+#                 name=name,
+#                 file=file_input,
+#                 description=description,
+#             )
+#             file.save()
+#             status = "OK"
+#         except:
+#             pass
+#     return JsonResponse({'status', status})
 
 @require_http_methods(["GET"])
 def download_file(request, path):

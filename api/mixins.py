@@ -1,5 +1,7 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import JsonResponse
 from django.core import serializers
+
 
 from helper.models import Folder, File
 
@@ -13,6 +15,13 @@ class JSONResponseMixin(object):
         return JsonResponse(
             self.get_data(**kwargs)
         )
+
+
+class JSONLoginRequiredMixin(LoginRequiredMixin):
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return JsonResponse({'status': 'error login required'})
+        return super(LoginRequiredMixin, self).dispatch(request, *args, **kwargs)
 
 
 class GetFolderMixin(object):
