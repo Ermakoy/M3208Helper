@@ -100,14 +100,15 @@ $('.sidebar').on('click', '.backspace', function () {
     render("http://127.0.0.1:8000/api/get-folder/" + currentFolder.parentFolderID);
 });
 $('.appendFolder').on('click', function () {
-    $.post({
-        url: "http://127.0.0.1:8000/appendFolder",
+    $.get({
+        url: "http://127.0.0.1:8000/api/append-folder/",
         data: {
-            parent_folder: currentFolder.parentFolderID,
-            name: 'Созданная кнопкой папка'
+            name: 'Созданная кнопкой папка',
+            parent_folder: currentFolder.self.pk
         },
         success: function (json) {
             console.log('1');
+            render('http://127.0.0.1:8000/api/get-folder/' + currentFolder.self.pk);
         },
         error: function (xhr, errmsg, err) {
             console.log('fuck');
