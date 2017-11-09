@@ -46,9 +46,9 @@ $(document).ready(function () {
         });
         render(url_pattern);
     } else {
-        if (fileParam===null) {
+        if (fileParam === null) {
             url_pattern = "http://127.0.0.1:8000/api/get-folder/" + folderParam.substr(1, folderParam.length - 2);
-        }else{
+        } else {
 
         }
         render(url_pattern);
@@ -58,7 +58,6 @@ $(document).ready(function () {
 function render(url_pattern) {
     $.getJSON(url_pattern, function (data) {
         currentFolder = new FolderClass($.parseJSON(data.child_folders), $.parseJSON(data.child_files), $.parseJSON(data.folder));
-        console.log(currentFolder.childFiles);
         var sidebarContent = $(".sidebar__content");
         var content = $(".content");
         sidebarContent.empty();
@@ -73,12 +72,12 @@ function render(url_pattern) {
         for (i in currentFolder.childFiles) {
             html = renderTemplate('files', {
                 name: currentFolder.childFiles[i]['fields'].name,
-                link: "http://127.0.0.1:8000/api/media/" + currentFolder.childFiles[i].pk,
+                link: "http://127.0.0.1:8000/media/" + currentFolder.childFiles[i]['fields'].file,
                 date: currentFolder.childFiles[i]['fields'].date_creation
             });
             content.append(html);
         }
-        if (currentFolder.parentFolderID===null) {
+        if (currentFolder.parentFolderID === null) {
             $('.backspace').css("display", "none");
         }
         else {
@@ -99,4 +98,19 @@ $('.sidebar').on('click', '.folder', function (event) {
 });
 $('.sidebar').on('click', '.backspace', function () {
     render("http://127.0.0.1:8000/api/get-folder/" + currentFolder.parentFolderID);
+});
+$('.appendFolder').on('click', function () {
+    $.post({
+        url: "http://127.0.0.1:8000/appendFolder",
+        data: {
+            parent_folder: currentFolder.parentFolderID,
+            name: 'Созданная кнопкой папка'
+        },
+        success: function (json) {
+            console.log('1');
+        },
+        error: function (xhr, errmsg, err) {
+            console.log('fuck');
+        }
+    })
 });

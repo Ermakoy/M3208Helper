@@ -39,7 +39,15 @@ header {
     width: 15px;
     height: 15px;
 }
-
+.appendFolder{
+    background-color: lightgrey;
+    display: flex;
+    flex-flow: row nowrap;
+    height: 75px;
+}
+.appendFolder:hover{
+    cursor: pointer;
+}
 .content {
     display: flex;
     flex: 9;
@@ -107,6 +115,7 @@ header {
 
 .sidebar {
     flex: 0 0.5 300px;
+    align-content: space-between;
 }
 
 @media screen and (max-width: 500px) {
