@@ -100,10 +100,11 @@ $('.sidebar').on('click', '.backspace', function () {
     render("http://127.0.0.1:8000/api/get-folder/" + currentFolder.parentFolderID);
 });
 $('.appendFolder').on('click', function () {
+    let folderName = prompt('Укажите название папки');
     $.get({
         url: "http://127.0.0.1:8000/api/append-folder/",
         data: {
-            name: 'Созданная кнопкой папка',
+            name: folderName,
             parent_folder: currentFolder.self.pk
         },
         success: function (json) {
