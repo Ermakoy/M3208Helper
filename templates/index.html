@@ -7,6 +7,7 @@
     <meta content="width=device-width, initial-scale=1" name="viewport">
     <link rel="stylesheet" href="{% static 'normalize.css' %}">
     <link rel="stylesheet" href="{% static 'style.css' %}">
+    <link rel="shortcut icon" href="{% static 'image/favicon.ico' %}" type="image/x-icon">
     <title>M3208</title>
 </head>
 <body>
@@ -20,6 +21,10 @@
 <div class="container">
     <div class="sidebar">
         <div class="sidebar__content"></div>
+        <div class="appendFolder">
+            <div class="appendIcon"></div>
+            <div class="folderName">Добавить папку</div>
+        </div>
     </div>
     <div class="content">
     </div>
@@ -34,6 +39,7 @@
         <div class="publishDate">Был загружен: {date}</div>
     </div>
 
+
 </script>
 <script type="html/tpl" id="template-folders">
 <div class="folderWrapper">
@@ -42,6 +48,7 @@
         <div class="folderName" >{name}</div>
     </div>
 </div>
+
 
 </script>
 </body>

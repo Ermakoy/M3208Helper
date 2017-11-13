@@ -28,7 +28,9 @@ header {
     flex-flow: row nowrap;
     height: 75px;
 }
-
+.backspace:hover{
+    cursor: pointer;
+}
 .backspaceIcon {
     display: block;
     align-self: center;
@@ -37,7 +39,15 @@ header {
     width: 15px;
     height: 15px;
 }
-
+.appendFolder{
+    background-color: lightgrey;
+    display: flex;
+    flex-flow: row nowrap;
+    height: 75px;
+}
+.appendFolder:hover{
+    cursor: pointer;
+}
 .content {
     display: flex;
     flex: 9;
@@ -76,7 +86,9 @@ header {
 .folderWrapper {
     height: 50px;
 }
-
+.folderWrapper:hover{
+    cursor: pointer;
+}
 .folder {
     display: flex;
     flex-flow: row nowrap;
@@ -103,6 +115,7 @@ header {
 
 .sidebar {
     flex: 0 0.5 300px;
+    align-content: space-between;
 }
 
 @media screen and (max-width: 500px) {
