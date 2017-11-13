@@ -10,7 +10,7 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('helper', '0002_auto_20170927_1307'),
+        ('file_system', '0002_auto_20170927_1307'),
     ]
 
     operations = [
@@ -32,6 +32,6 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='folder',
             name='parent_folder',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='child_folders', to='helper.Folder'),
+            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='child_folders', to='file_system.Folder'),
         ),
     ]

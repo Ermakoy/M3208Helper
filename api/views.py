@@ -3,7 +3,7 @@ from django.views.decorators.http import require_http_methods
 from django.views.generic.detail import BaseDetailView
 from django.core import serializers
 
-from helper.models import Folder, File
+from file_system.models import Folder, File
 from .mixins import JSONResponseMixin, JSONLoginRequiredMixin
 
 
@@ -37,7 +37,7 @@ class JSONResponseFolderView(JSONDetailView):
         return self.render_to_response(*args, **data)
 
 
-class JSONAppendFolderView(JSONDetailView):
+class AppendFolderAPIView(JSONDetailView):
     def get(self, request, *args, **kwargs):
         kwargs = request.GET
         try:
@@ -52,52 +52,3 @@ class JSONAppendFolderView(JSONDetailView):
         except:
             self.render_to_response(**{'status': 'error'})
         return self.render_to_response(**{'status': 'ok'})
-
-
-@require_http_methods(["POST"])
-def change_name_folder(request):
-    pass
-    # try:
-    #     new_name = request.GET.get('name')
-    #     id = int(request.GET.get('id'))
-    #     folder = Folder.objects.get(id=id)
-    #     folder.name = new_name
-    #     folder.save()
-    #     status = "OK"
-    # except:
-    #     status = "ERROR"
-    #
-    # return status
-
-#
-# @require_http_methods(["POST"])
-# def simple_upload(request):
-#     status = "ERROR"
-#     if request.FILES['file_input']:
-#         try:
-#             file_input = request.FILES['file_input']
-#             name = request.GET.get('name')
-#             try:
-#                 description = request.GET.get('description')
-#             except:
-#                 description = ""
-#             file = File(
-#                 name=name,
-#                 file=file_input,
-#                 description=description,
-#             )
-#             file.save()
-#             status = "OK"
-#         except:
-#             pass
-#     return JsonResponse({'status', status})
-
-@require_http_methods(["GET"])
-def download_file(request, path):
-    file = File.objects.get(id=int(path))
-
-    with open(file.file.path, 'rb') as file_op:
-        response = HttpResponse(file_op.read())
-        response['Content-Disposition'] = "attachment; filename=" + file.name
-        # response['X-Sendfile'] = smart_str(os.path.join(MEDIA_ROOT, path))
-        return response

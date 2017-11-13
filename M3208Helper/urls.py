@@ -4,7 +4,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 
 urlpatterns = [
-    url(r'^', include('helper.urls')),
+    url(r'^', include('file_system.urls')),
     url(r'^api/', include('api.urls')),
     url(r'^admin/', admin.site.urls),
     url(r'^accounts/', include('accounts.urls'))

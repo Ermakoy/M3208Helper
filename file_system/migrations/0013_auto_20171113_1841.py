@@ -9,13 +9,13 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('helper', '0012_auto_20171113_1755'),
+        ('file_system', '0012_auto_20171113_1755'),
     ]
 
     operations = [
         migrations.AlterField(
             model_name='folder',
             name='parent_folder',
-            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='Child_folder', to='helper.Folder'),
+            field=models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='Child_folder', to='file_system.Folder'),
         ),
     ]
