@@ -11,3 +11,4 @@ api/migrations/__pycache__/
 helper/__pycache__/
 helper/migrations/__pycache__/
 static/js/jquery-3.2.1.min.js
+node_modules/
