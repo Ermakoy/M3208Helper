@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'helper.apps.HelperConfig',
+    'file_system.apps.HelperConfig',
     'api.apps.ApiConfig',
 ]
 
@@ -52,6 +52,8 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'M3208Helper.urls'
+
+LOGIN_REDIRECT_URL = "/"
 
 TEMPLATES = [
     {

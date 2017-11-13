@@ -3,7 +3,7 @@ from django.http import JsonResponse
 from django.core import serializers
 
 
-from helper.models import Folder, File
+from file_system.models import Folder, File
 
 
 class JSONResponseMixin(object):

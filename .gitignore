@@ -8,7 +8,7 @@ media
 M3208Helper/__pycache__/
 api/__pycache__/
 api/migrations/__pycache__/
-helper/__pycache__/
-helper/migrations/__pycache__/
+file_system/__pycache__/
+file_system/migrations/__pycache__/
 static/js/jquery-3.2.1.min.js
 node_modules/

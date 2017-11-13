@@ -1,11 +1,11 @@
-from django.views.generic.base import TemplateView
-from django.views.generic.edit import ProcessFormView, FormView
+from django.views.generic.edit import FormView
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .forms import FileUploadForm
 from .models import File
 
 
-class IndexView(FormView):
+class IndexView(LoginRequiredMixin, FormView):
     template_name = "index.html"
     form_class = FileUploadForm
     success_url = '/'
