@@ -60,14 +60,17 @@ header {
 
 .file {
     display: flex;
+    flex: 0 0 300px;
+    max-width: 250px;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     height: inherit;
-
     margin: 0 15px 15px 0;
 }
-
+.file a {
+    word-wrap: break-word;
+}
 .fileIcon {
     background: url("image/fileIcon.png") no-repeat;
     width: 128px;
