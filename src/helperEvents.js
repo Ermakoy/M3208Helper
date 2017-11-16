@@ -14,16 +14,18 @@ function init() {
     });
     $('.appendFolder').on('click', () => {
         const folderName = prompt('Укажите название папки');
-        $.get({
-            url: 'http://127.0.0.1:8000/api/append-folder/',
-            data: {
-                name: folderName,
-                parent_folder: currentFolder().self.pk,
-            },
-            success() {
-                render(`http://127.0.0.1:8000/api/get-folder/${currentFolder().self.pk}`);
-            },
-        });
+        if (folderName !== null) {
+            $.get({
+                url: 'http://127.0.0.1:8000/api/append-folder/',
+                data: {
+                    name: folderName,
+                    parent_folder: currentFolder().self.pk,
+                },
+                success() {
+                    render(`http://127.0.0.1:8000/api/get-folder/${currentFolder().self.pk}`);
+                },
+            });
+        }
     });
 }
 module.exports = {
