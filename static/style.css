@@ -4,12 +4,12 @@ body {
 }
 
 /*header {*/
-    /*background: url("image/killmepls.png");*/
-    /*height: 200px;*/
-    /*margin: 0 auto;*/
-    /*width: 500px;*/
-    /*text-align: center;*/
-    /*vertical-align: middle;*/
+/*background: url("image/killmepls.png");*/
+/*height: 200px;*/
+/*margin: 0 auto;*/
+/*width: 500px;*/
+/*text-align: center;*/
+/*vertical-align: middle;*/
 /*}*/
 
 .container {
@@ -65,6 +65,7 @@ body {
 
 .file {
     display: flex;
+    transition: all 0.3s ease;
     border-radius: 10px 0 10px 0;
     background-color: #3498db;
     flex-direction: column;
@@ -73,6 +74,14 @@ body {
     height: 200px;
     width: 200px;
     margin: 0 15px 15px 0;
+}
+
+.file:hover {
+    box-shadow: 1px 1px #2830b2,
+                2px 2px #2830b2,
+                3px 3px #2830b2;
+    -webkit-transform: translateX(-3px);
+    transform: translateX(-3px);
 }
 
 .file a {
@@ -130,13 +139,23 @@ body {
     justify-content: space-between;
 }
 
+@media screen and (max-width: 1366px) {
+    .file {
+        width: 170px;
+        height: 170px;
+        padding: 5px;
+    }
+}
+
 @media screen and (max-width: 500px) {
     header {
         display: none;
     }
-    .fileIcon{
+
+    .fileIcon {
         display: none;
     }
+
     .sidebar {
         flex: 0 0 0;
         margin: 5px 0;
