@@ -1,8 +1,11 @@
 body {
     padding: 7px;
     background-color: #ecf0f1;
+    font-family: 'Roboto', sans-serif;
 }
-
+a {
+    text-decoration: none;
+}
 /*header {*/
 /*background: url("image/killmepls.png");*/
 /*height: 200px;*/
@@ -19,6 +22,7 @@ body {
 
 .backspace {
     border-radius: 10px 0 10px 0;
+    transition: all 0.3s ease;
     background-color: #7f8c8d;
     display: flex;
     justify-content: center;
@@ -29,28 +33,30 @@ body {
 
 .backspace:hover {
     cursor: pointer;
+    box-shadow: 1px 1px #33393d,
+                2px 2px #33393d,
+                3px 3px #33393d;
+    -webkit-transform: translateX(-3px);
+    transform: translateX(-3px);
 }
-
-.backspaceIcon {
-    display: block;
-    align-self: center;
-    background-image: url("image/backspaceIcon.png");
-    background-size: 15px 15px;
-    width: 15px;
-    height: 15px;
-}
-
 .appendFolder {
     border-radius: 10px 0 10px 0;
+    transition: all 0.3s ease;
     background-color: #2ecc71;
     display: flex;
     justify-content: center;
     flex-flow: row nowrap;
     height: 50px;
+    margin-bottom: 7px;
 }
 
 .appendFolder:hover {
     cursor: pointer;
+    box-shadow: 1px 1px #2b8142,
+                2px 2px #2b8142,
+                3px 3px #2b8142;
+    -webkit-transform: translateX(-3px);
+    transform: translateX(-3px);
 }
 
 .content {
@@ -69,7 +75,7 @@ body {
     border-radius: 10px 0 10px 0;
     background-color: #3498db;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     height: 200px;
     width: 200px;
@@ -96,18 +102,22 @@ body {
     flex-basis: content;
 }
 
-.folder:hover {
-    cursor: pointer;
-}
-
 .folder {
     display: flex;
     border-radius: 10px 0 10px 0;
+    transition: all 0.3s ease;
     background-color: #f1c40f;
     justify-content: center;
-    flex-flow: row nowrap;
     height: 50px;
-    margin-bottom: 5px;
+    margin-bottom: 7px;
+}
+.folder:hover {
+    cursor: pointer;
+    box-shadow: 1px 1px #f1ac20,
+                2px 2px #f1ac20,
+                3px 3px #f1ac20;
+    -webkit-transform: translateX(-3px);
+    transform: translateX(-3px);
 }
 
 .folderName {
@@ -115,18 +125,14 @@ body {
     align-self: center;
 }
 
-.folder p {
-    color: #3e4eff;
-}
-
-.folderIcon {
-    display: block;
-    align-self: center;
-    background-image: url("image/folderIcon.png");
-    background-size: 15px 15px;
-    width: 15px;
-    height: 15px;
-}
+/*.folderIcon {*/
+    /*display: block;*/
+    /*align-self: flex-start;*/
+    /*background-image: url("image/folderIcon.png");*/
+    /*background-size: 15px 15px;*/
+    /*width: 15px;*/
+    /*height: 15px;*/
+/*}*/
 
 .sidebar {
     flex: 0 0.5 250px;
@@ -187,5 +193,8 @@ body {
         width: 45%;
         text-overflow: ellipsis;
         margin-right: 0;
+    }
+    .publishDate{
+        display: none;
     }
 }

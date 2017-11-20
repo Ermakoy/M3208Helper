@@ -7,7 +7,6 @@ let currentFolder;
 
 function setBackspace() {
     $('.sidebar').prepend('<div class=\'backspace\'>\n' +
-        '            <i class=\'backspaceIcon\'></i>\n' +
         '            <div class=\'folderName\'>Вернуться назад</div>\n' +
         '        </div>');
 }
@@ -41,18 +40,22 @@ function render(urlPattern) {
         const content = $('.content');
         sidebarContent.empty();
         content.empty();
-        for (const i in currentFolder.childFolders) {
+        for (const folder of currentFolder.childFolders) {
             const html = renderTemplate('template-folders', {
-                name: currentFolder.childFolders[i].fields.name,
-                id: currentFolder.childFolders[i].pk,
+                name: folder.fields.name,
+                id: folder.pk,
             });
             sidebarContent.append(html);
         }
-        for (const i in currentFolder.childFiles) {
+        for (const file of currentFolder.childFiles) {
+            let fileName = file.fields.name;
+            if (fileName.indexOf('.') !== -1) {
+                fileName = fileName.substring(0, fileName.indexOf('.'));
+            }
             const html = renderTemplate('files', {
-                name: currentFolder.childFiles[i].fields.name,
-                link: `http://127.0.0.1:8000/media/${currentFolder.childFiles[i].fields.file}`,
-                date: currentFolder.childFiles[i].fields.date_creation,
+                name: fileName,
+                link: `http://127.0.0.1:8000/media/${file.fields.file}`,
+                date: file.fields.date_creation,
             });
             content.append(html);
         }
@@ -82,6 +85,7 @@ function init() {
         render(`http://127.0.0.1:8000/api/get-folder/${folderParam.substr(1, folderParam.length - 2)}`);
     }
 }
+
 module.exports = {
     currentFolder() {
         return currentFolder;
