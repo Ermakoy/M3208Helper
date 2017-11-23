@@ -21,10 +21,13 @@
             <div class="appendIcon"></div>
             <div class="folderName">Добавить папку</div>
         </div>
-        <div style="display: block; border: red double 1px; padding: 5px">
-            <form enctype="multipart/form-data" action="" method="post">{% csrf_token %}
+        <div class="appendFiles">
+            <div class="folderName">Добавить файлы</div>
+        </div>
+        <div class="appendFiles__form">
+            <form enctype="multipart/form-data" action="" method="post" class="sendForm">{% csrf_token %}
                 {{ form.as_p }}
-                <input type="submit" value="{{ button_name }}"/>
+                <input type="submit" value="Отправить"/>
             </form>
         </div>
     </div>
@@ -33,17 +36,21 @@
 </div>
 <script src="{% static 'js/script.js' %}"></script>
 <script type="html/tpl" id="files">
-    <div class="file">
-        <div class="fileIcon"></div>
-        <a href="{link}">{name}</a>
-        <div class="publishDate">Был загружен: {date}</div>
-    </div>
+        <a href="{link}" class="file">
+            <div class="fileIcon"></div>
+            <p>{name}</p>
+            <div class="publishDate">Был загружен: {date}</div>
+        </a>
+
 </script>
 <script type="html/tpl" id="template-folders">
     <div class="folder" data-id="{id}">
         <i class="folderIcon"></i>
         <div class="folderName" >{name}</div>
     </div>
+
+
+
 </script>
 </body>
 </html>

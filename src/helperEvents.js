@@ -14,7 +14,7 @@ function init() {
     });
     $('.appendFolder').on('click', () => {
         const folderName = prompt('Укажите название папки');
-        if (folderName !== null) {
+        if (folderName !== '' && folderName !== null) {
             $.get({
                 url: 'http://127.0.0.1:8000/api/append-folder/',
                 data: {
@@ -26,6 +26,10 @@ function init() {
                 },
             });
         }
+    });
+    $('.appendFiles').on('click', () => {
+        $('.appendFiles').css('display','none');
+        $('.appendFiles__form').css('display', 'block');
     });
 }
 module.exports = {

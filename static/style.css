@@ -3,9 +3,15 @@ body {
     background-color: #ecf0f1;
     font-family: 'Roboto', sans-serif;
 }
+
 a {
     text-decoration: none;
 }
+
+p {
+    text-align: center;
+}
+
 /*header {*/
 /*background: url("image/killmepls.png");*/
 /*height: 200px;*/
@@ -34,11 +40,12 @@ a {
 .backspace:hover {
     cursor: pointer;
     box-shadow: 1px 1px #33393d,
-                2px 2px #33393d,
-                3px 3px #33393d;
+    2px 2px #33393d,
+    3px 3px #33393d;
     -webkit-transform: translateX(-3px);
     transform: translateX(-3px);
 }
+
 .appendFolder {
     border-radius: 10px 0 10px 0;
     transition: all 0.3s ease;
@@ -53,19 +60,45 @@ a {
 .appendFolder:hover {
     cursor: pointer;
     box-shadow: 1px 1px #2b8142,
-                2px 2px #2b8142,
-                3px 3px #2b8142;
+    2px 2px #2b8142,
+    3px 3px #2b8142;
     -webkit-transform: translateX(-3px);
     transform: translateX(-3px);
 }
 
+.appendFiles {
+    border-radius: 10px 0 10px 0;
+    transition: all 0.3s ease;
+    background-color: #59ccc1;
+    display: flex;
+    justify-content: center;
+    flex-flow: row nowrap;
+    height: 50px;
+    margin-bottom: 7px;
+}
+
+.appendFiles:hover {
+    cursor: pointer;
+    box-shadow: 1px 1px #52a398,
+    2px 2px #52a398,
+    3px 3px #52a398;
+    -webkit-transform: translateX(-3px);
+    transform: translateX(-3px);
+}
+
+.appendFiles__form {
+    display: none;
+    border-radius: 10px 0 10px 0;
+    transition: all 0.3s ease;
+    background-color: #8e88cc;
+}
+
 .content {
     display: flex;
+    align-self: flex-start;
     flex: 9;
     padding-left: 15px;
     justify-content: flex-start;
-    flex-direction: row;
-    align-items: flex-start;
     flex-wrap: wrap;
 }
 
@@ -80,12 +113,13 @@ a {
     height: 200px;
     width: 200px;
     margin: 0 15px 15px 0;
+    padding: 4px;
 }
 
 .file:hover {
     box-shadow: 1px 1px #2830b2,
-                2px 2px #2830b2,
-                3px 3px #2830b2;
+    2px 2px #2830b2,
+    3px 3px #2830b2;
     -webkit-transform: translateX(-3px);
     transform: translateX(-3px);
 }
@@ -111,11 +145,12 @@ a {
     height: 50px;
     margin-bottom: 7px;
 }
+
 .folder:hover {
     cursor: pointer;
     box-shadow: 1px 1px #f1ac20,
-                2px 2px #f1ac20,
-                3px 3px #f1ac20;
+    2px 2px #f1ac20,
+    3px 3px #f1ac20;
     -webkit-transform: translateX(-3px);
     transform: translateX(-3px);
 }
@@ -125,14 +160,28 @@ a {
     align-self: center;
 }
 
+.hidden {
+    display: none;
+}
+
+a:visited {
+    color: #2000ef;
+}
+
 /*.folderIcon {*/
-    /*display: block;*/
-    /*align-self: flex-start;*/
-    /*background-image: url("image/folderIcon.png");*/
-    /*background-size: 15px 15px;*/
-    /*width: 15px;*/
-    /*height: 15px;*/
+/*display: block;*/
+/*align-self: flex-start;*/
+/*background-image: url("image/folderIcon.png");*/
+/*background-size: 15px 15px;*/
+/*width: 15px;*/
+/*height: 15px;*/
 /*}*/
+.sendForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 4px;
+}
 
 .sidebar {
     flex: 0 0.5 250px;
@@ -169,12 +218,14 @@ a {
 
     .sidebar__content {
         flex-flow: row wrap;
-        justify-content: space-between;
+        justify-content: flex-start;
         align-items: flex-start;
     }
 
     .folder {
         width: 23%;
+        margin-right: 1%;
+        margin-left: 1%;
     }
 
     .container {
@@ -194,7 +245,8 @@ a {
         text-overflow: ellipsis;
         margin-right: 0;
     }
-    .publishDate{
+
+    .publishDate {
         display: none;
     }
 }
