@@ -1,5 +1,10 @@
+html {
+    height: 100%;
+}
+
 body {
-    padding: 7px;
+    height: 100vh;
+    margin: 0 10px;
     background-color: #ecf0f1;
     font-family: 'Roboto', sans-serif;
 }
@@ -12,18 +17,9 @@ p {
     text-align: center;
 }
 
-/*header {*/
-/*background: url("image/killmepls.png");*/
-/*height: 200px;*/
-/*margin: 0 auto;*/
-/*width: 500px;*/
-/*text-align: center;*/
-/*vertical-align: middle;*/
-/*}*/
-
 .container {
     display: flex;
-    min-height: 500px;
+    height: 100%;
 }
 
 .backspace {
@@ -88,6 +84,7 @@ p {
 
 .appendFiles__form {
     display: none;
+    width: 250px;
     border-radius: 10px 0 10px 0;
     transition: all 0.3s ease;
     background-color: #8e88cc;
@@ -97,7 +94,9 @@ p {
     display: flex;
     align-self: flex-start;
     flex: 9;
-    padding-left: 15px;
+    height: 100%;
+    overflow: auto;
+    padding-left: 35px;
     justify-content: flex-start;
     flex-wrap: wrap;
 }
@@ -142,7 +141,7 @@ p {
     transition: all 0.3s ease;
     background-color: #f1c40f;
     justify-content: center;
-    height: 50px;
+    min-height: 50px;
     margin-bottom: 7px;
 }
 
@@ -168,30 +167,27 @@ a:visited {
     color: #2000ef;
 }
 
-/*.folderIcon {*/
-/*display: block;*/
-/*align-self: flex-start;*/
-/*background-image: url("image/folderIcon.png");*/
-/*background-size: 15px 15px;*/
-/*width: 15px;*/
-/*height: 15px;*/
-/*}*/
 .sendForm {
     display: flex;
+    width: inherit;
     flex-direction: column;
     align-items: center;
     padding: 4px;
 }
 
 .sidebar {
+    display: flex;
+    flex-flow: column;
     flex: 0 0.5 250px;
-    align-content: space-between;
+    justify-content: space-between;
 }
 
 .sidebar__content {
     display: flex;
+    flex: 1;
+    align-self: stretch;
     flex-flow: column;
-    justify-content: space-between;
+    overflow: auto;
 }
 
 @media screen and (max-width: 1366px) {

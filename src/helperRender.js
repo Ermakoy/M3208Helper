@@ -66,6 +66,8 @@ function render(urlPattern) {
         } else {
             setBackspace();
         }
+        $('.appendFiles__form').css('display','none');
+        $('.appendFiles').css('display','flex');
         history.pushState(null, null, `?folder='${currentFolder.self.pk}'`);
     });
 }

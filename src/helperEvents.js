@@ -29,7 +29,7 @@ function init() {
     });
     $('.appendFiles').on('click', () => {
         $('.appendFiles').css('display','none');
-        $('.appendFiles__form').css('display', 'block');
+        $('.appendFiles__form').css('display', 'flex');
     });
 }
 module.exports = {

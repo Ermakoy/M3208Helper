@@ -17,18 +17,20 @@
 <div class="container">
     <div class="sidebar">
         <div class="sidebar__content"></div>
-        <div class="appendFolder">
-            <div class="appendIcon"></div>
-            <div class="folderName">Добавить папку</div>
-        </div>
-        <div class="appendFiles">
-            <div class="folderName">Добавить файлы</div>
-        </div>
-        <div class="appendFiles__form">
-            <form enctype="multipart/form-data" action="" method="post" class="sendForm">{% csrf_token %}
-                {{ form.as_p }}
-                <input type="submit" value="Отправить"/>
-            </form>
+        <div class="appendButtons">
+            <div class="appendFolder">
+                <div class="appendIcon"></div>
+                <div class="folderName">Добавить папку</div>
+            </div>
+            <div class="appendFiles">
+                <div class="folderName">Добавить файлы</div>
+            </div>
+            <div class="appendFiles__form">
+                <form enctype="multipart/form-data" action="" method="post" class="sendForm">{% csrf_token %}
+                    <input type="file" name="files_upload" multiple>
+                    <input type="submit" value="Загрузить файлы" class="sendFiles">
+                </form>
+            </div>
         </div>
     </div>
     <div class="content">
@@ -41,13 +43,18 @@
             <p>{name}</p>
             <div class="publishDate">Был загружен: {date}</div>
         </a>
-
 </script>
 <script type="html/tpl" id="template-folders">
     <div class="folder" data-id="{id}">
         <i class="folderIcon"></i>
         <div class="folderName" >{name}</div>
     </div>
+
+
+
+
+
+
 
 
 
