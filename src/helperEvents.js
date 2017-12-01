@@ -15,8 +15,8 @@ function init() {
     $('.appendFolder').on('click', () => {
         const folderName = prompt('Укажите название папки');
         if (folderName !== '' && folderName !== null) {
-            $.get({
-                url: 'http://127.0.0.1:8000/api/append-folder/',
+            $.post({
+                url: 'http://127.0.0.1:8000/api/create-folder/',
                 data: {
                     name: folderName,
                     parent_folder: currentFolder().self.pk,
@@ -27,11 +27,60 @@ function init() {
             });
         }
     });
+    $('.sendFiles').on('click', (event) => {
+        event.preventDefault();
+        let formFiles = $('.files')[0].files;
+        let data = {};
+        data.folder = currentFolder().self.pk;
+        data.files = formFiles;
+        $.ajax({
+            url: 'http://127.0.0.1:8000',
+            type: 'POST',
+            data: data,
+            success() {
+                console.log('success')
+            }
+        })
+    });
     $('.appendFiles').on('click', () => {
-        $('.appendFiles').css('display','none');
+        $('.appendFiles').css('display', 'none');
         $('.appendFiles__form').css('display', 'flex');
     });
+    $('.upload_files').on('click', function (event) {
+        let files = $('.files').files;
+        event.stopPropagation(); // остановка всех текущих JS событий
+        event.preventDefault();  // остановка дефолтного события для текущего элемента - клик для <a> тега
+        if (typeof files == 'undefined') return;
+        let data = new FormData();
+        $.each(files, function (key, value) {
+            data.append(key, value);
+        });
+        data.append('folder', currentFolder().self.pk);
+        $.ajax({
+            url: './submit.php', // TODO Никита, ёбан-бобан поменяй тут URL для запроса
+            type: 'POST',
+            data: data,
+            cache: false,
+            dataType: 'json',
+            processData: false,
+            contentType: false,
+            success: function (respond, status, jqXHR) {
+                if (typeof respond.error === 'undefined') {
+                    console.log('Всё прошло нормально')
+                }
+                else {
+                    console.log('КОД КРАСНЫЙ КОД КРАСНЫЙ');
+                }
+            },
+            error: function (jqXHR, status, errorThrown) {
+                console.log('ОШИБКА AJAX запроса: ' + status, jqXHR);
+            }
+
+        });
+
+    });
 }
+
 module.exports = {
     init,
 };
