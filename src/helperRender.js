@@ -13,7 +13,7 @@ function setBackspace() {
 /**
  * Function, that renders Folder and File template
  * 
- * @param {any} name name of the template
+ * @param {string} name name of the template
  * @param {object} data object with data to print
  * @returns DOM node
  */
@@ -27,6 +27,20 @@ function renderTemplate(name, data) {
         }
     }
     return template;
+}
+/**
+ * Function checking the extension of file, to define a file icon
+ * 
+ * @param {string} file Filename string
+ * @returns Extension of file or -1 if it hasn't
+ */
+function checkExtension(file) {
+    file=file.substring(file.lastIndexOf('.')+1);
+    if (file !== null) {
+        return file;
+    }else{
+        return -1;
+    }
 }
 /**
  * Function for getting parameters from URL's Querystring
@@ -64,6 +78,7 @@ function render(urlPattern) {
             sidebarContent.append(html);
         }
         for (const file of currentFolder.childFiles) {
+            console.log(file);
             let fileName = file.fields.name;
             if (fileName.indexOf('.') !== -1) {
                 fileName = fileName.substring(0, fileName.indexOf('.'));
