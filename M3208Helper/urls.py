@@ -1,11 +1,15 @@
 from django.conf import settings
 from django.conf.urls import url, include
 from django.conf.urls.static import static
+from django.urls import path
 from django.contrib import admin
 
+
+from storage.views import IndexView
+
 urlpatterns = [
-    url(r'^', include('file_system.urls')),
-    url(r'^api/', include('api.urls')),
-    url(r'^admin/', admin.site.urls),
-    url(r'^accounts/', include('accounts.urls'))
+    path(r'admin/', admin.site.urls),
+    path(r'storage/', include('storage.urls')),
+    path(r'', IndexView.as_view()),
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

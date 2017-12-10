@@ -1,6 +1,7 @@
+django==2.0
+djangorestframework==3.7.3
+
 # Data Base
-psycopg2
+psycopg2==2.7.3
 
-Pillow
-sorl-thumbnail
-
+Pillow==4.3.0
