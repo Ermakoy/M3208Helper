@@ -10,7 +10,13 @@ function setBackspace() {
         '            <div class=\'folderName\'>Вернуться назад</div>\n' +
         '        </div>');
 }
-
+/**
+ * Function, that renders Folder and File template
+ * 
+ * @param {any} name name of the template
+ * @param {object} data object with data to print
+ * @returns DOM node
+ */
 function renderTemplate(name, data) {
     let template = document.getElementById(name).innerHTML;
 
@@ -22,7 +28,13 @@ function renderTemplate(name, data) {
     }
     return template;
 }
-
+/**
+ * Function for getting parameters from URL's Querystring
+ * 
+ * @param {any} name Name for searching parameter
+ * @param {any} url 
+ * @returns Value of parameter
+ */
 function getParameterByName(name, url) {
     if (!url) url = window.location.href;
     name = name.replace(/[\[\]]/g, '\\$&');
@@ -32,7 +44,11 @@ function getParameterByName(name, url) {
     if (!results[2]) return '';
     return decodeURIComponent(results[2].replace(/\+/g, ' '));
 }
-
+/**
+ * This function renders folders and files by taking a urlPattern string
+ * 
+ * @param {string} urlPattern 
+ */
 function render(urlPattern) {
     $.getJSON(urlPattern, (data) => {
         currentFolder = new FolderClass($.parseJSON(data.child_folders), $.parseJSON(data.child_files), $.parseJSON(data.folder));

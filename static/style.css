@@ -116,9 +116,9 @@ p {
 }
 
 .file:hover {
-    box-shadow: 1px 1px #2830b2,
-    2px 2px #2830b2,
-    3px 3px #2830b2;
+    box-shadow: 1px 1px #2e6da6,
+    2px 2px #2e6da6,
+    3px 3px #2e6da6;
     -webkit-transform: translateX(-3px);
     transform: translateX(-3px);
 }
@@ -191,6 +191,10 @@ a:visited {
 }
 
 @media screen and (max-width: 1366px) {
+    .content {
+        justify-content: space-between;
+    }
+
     .file {
         width: 170px;
         height: 170px;
@@ -208,12 +212,11 @@ a:visited {
     }
 
     .sidebar {
-        flex: 0 0 0;
         margin: 5px 0;
     }
 
     .sidebar__content {
-        flex-flow: row wrap;
+        flex-flow: column wrap;
         justify-content: flex-start;
         align-items: flex-start;
     }
@@ -230,16 +233,16 @@ a:visited {
 
     .content {
         align-items: center;
-        flex-flow: row wrap;
+        flex-flow: column wrap;
         justify-content: space-between;
         padding: 0;
     }
 
     .file {
-        height: 100px;
+        height: 40%;
         width: 45%;
         text-overflow: ellipsis;
-        margin-right: 0;
+        margin-right: 5px;
     }
 
     .publishDate {

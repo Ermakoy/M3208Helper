@@ -12,3 +12,4 @@ file_system/__pycache__/
 file_system/migrations/__pycache__/
 static/js/jquery-3.2.1.min.js
 node_modules/
+.DS_Store

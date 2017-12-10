@@ -26,9 +26,9 @@
                 <div class="folderName">Добавить файлы</div>
             </div>
             <div class="appendFiles__form">
-                <form enctype="multipart/form-data" action="" method="post" class="sendForm">{% csrf_token %}
-                    <input type="file" name="files_upload" multiple>
-                    <input type="submit" value="Загрузить файлы" class="sendFiles">
+                <form enctype="multipart/form-data" class="sendForm">{% csrf_token %}
+                    <input type="file" name="files_upload" multiple class="files">
+                    <button class="sendFiles">"Загрузить файлы"</button>
                 </form>
             </div>
         </div>
@@ -49,15 +49,6 @@
         <i class="folderIcon"></i>
         <div class="folderName" >{name}</div>
     </div>
-
-
-
-
-
-
-
-
-
 </script>
 </body>
 </html>
