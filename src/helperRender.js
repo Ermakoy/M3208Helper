@@ -65,28 +65,27 @@ function getParameterByName(name, url) {
  */
 function render(urlPattern) {
     $.getJSON(urlPattern, (data) => {
-        currentFolder = new FolderClass($.parseJSON(data.child_folders), $.parseJSON(data.child_files), $.parseJSON(data.folder));
+        currentFolder = new FolderClass(data.child_folders, data.files,{id : data.id, name: data.name, parentID : data.parent_folder});
         const sidebarContent = $('.sidebar__content');
         const content = $('.content');
         sidebarContent.empty();
         content.empty();
         for (const folder of currentFolder.childFolders) {
             const html = renderTemplate('template-folders', {
-                name: folder.fields.name,
-                id: folder.pk,
+                name: folder.name,
+                id: folder.id,
             });
             sidebarContent.append(html);
         }
-        for (const file of currentFolder.childFiles) {
-            console.log(file);
-            let fileName = file.fields.name;
+        for (const file of currentFolder.files) {
+            let fileName = file.name;
             if (fileName.indexOf('.') !== -1) {
                 fileName = fileName.substring(0, fileName.indexOf('.'));
             }
             const html = renderTemplate('files', {
                 name: fileName,
-                link: `http://127.0.0.1:8000/media/${file.fields.file}`,
-                date: file.fields.date_creation,
+                link: `http://127.0.0.1:8000/media/${file.file}`,
+                date: file.date_creation,
             });
             content.append(html);
         }
@@ -99,7 +98,7 @@ function render(urlPattern) {
         }
         $('.appendFiles__form').css('display','none');
         $('.appendFiles').css('display','flex');
-        history.pushState(null, null, `?folder='${currentFolder.self.pk}'`);
+        history.pushState(null, null, `?folder='${currentFolder.self.id}'`);
     });
 }
 
@@ -107,15 +106,15 @@ function init() {
     const folderParam = getParameterByName('folder');
     const fileParam = getParameterByName('file');
     if (folderParam === null) {
-        let urlPattern = 'http://127.0.0.1:8000/api/get-root';
+        let urlPattern = 'http://127.0.0.1:8000/storage/api/root/';
         $.getJSON(urlPattern, (data) => {
-            currentFolder = new FolderClass(null, $.parseJSON(data.child_files), $.parseJSON(data.folder));
-            urlPattern = `http://127.0.0.1:8000/api/get-folder/${currentFolder.self.pk}`;
+            currentFolder = new FolderClass(null,data.files, {id : data.id, name : data.name, parentID : data.parent_folder});
+            urlPattern = `http://127.0.0.1:8000/storage/api/folder/${currentFolder.self.id}/`;
             setBackspace();
         });
         render(urlPattern);
     } else if (fileParam === null) {
-        render(`http://127.0.0.1:8000/api/get-folder/${folderParam.substr(1, folderParam.length - 2)}`);
+        render(`http://127.0.0.1:8000/storage/api/folder/${folderParam.substr(1, folderParam.length - 2)}/`);
     }
 }
 

@@ -1,8 +1,14 @@
 // Folder declaration
-'use strict';
+/**
+ * Main abstraction
+ * 
+ * @param {array} childFolders Array of folders
+ * @param {array} childFiles Array of files
+ * @param {object} self Information about folder itself
+ */
 module.exports = function FolderClass(childFolders, childFiles, self) {
-    this.parentFolderID = self[0].fields.parent_folder;
+    this.parentFolderID = self.parentID;
     this.childFolders = childFolders;
-    this.childFiles = childFiles;
-    this.self = self[0];
+    this.files = childFiles;
+    this.self = self;
 };
