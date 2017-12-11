@@ -79,6 +79,46 @@
 						"description": ""
 					},
 					"response": []
+				},
+				{
+					"name": "127.0.0.1:8000/storage/api/upload/",
+					"request": {
+						"url": "127.0.0.1:8000/storage/api/upload/",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Disposition",
+								"value": "attachment",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "folder",
+									"value": "1",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "files",
+									"value": "",
+									"description": "",
+									"type": "file"
+								},
+								{
+									"key": "files",
+									"value": "",
+									"description": "",
+									"type": "file",
+									"disabled": true
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
 				}
 			]
 		}
