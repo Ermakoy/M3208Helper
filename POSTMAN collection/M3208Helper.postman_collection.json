@@ -1,0 +1,86 @@
+{
+	"variables": [],
+	"info": {
+		"name": "M3208Helper",
+		"_postman_id": "49628b89-03dc-e5b2-5fd1-12f12b5d1961",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "storage",
+			"description": "",
+			"item": [
+				{
+					"name": "127.0.0.1:8000/storage/api/root/",
+					"request": {
+						"url": "127.0.0.1:8000/storage/api/root/",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "127.0.0.1:8000/storage/api/folder/1/",
+					"request": {
+						"url": "127.0.0.1:8000/storage/api/folder/1/",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "127.0.0.1:8000/storage/api/folder/create/",
+					"request": {
+						"url": "127.0.0.1:8000/storage/api/folder/create/",
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Ёбано в рот",
+									"description": "",
+									"type": "text"
+								},
+								{
+									"key": "parent_folder",
+									"value": "1",
+									"description": "",
+									"type": "text"
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "127.0.0.1:8000/storage/api/folder/update/1/",
+					"request": {
+						"url": "127.0.0.1:8000/storage/api/folder/update/1/",
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "hui",
+									"description": ""
+								}
+							]
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
