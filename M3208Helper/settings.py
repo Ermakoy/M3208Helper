@@ -123,8 +123,14 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
 
+DATABASES = {
+   "default": {
+       "ENGINE": "django.db.backends.postgresql",
+       "NAME": "m3208helper_db",
+       "USER": "cheshire",
+       "PASSWORD": "g76fbbe9",
+       "HOST": "localhost",
+       "POST": "",
+   }
+}
 
-try:
-    from .local_settings import *
-except ImportError:
-    pass
