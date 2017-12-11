@@ -24,6 +24,7 @@ class File(models.Model):
         verbose_name="Родительская папка",
     )
     file = models.FileField(verbose_name="Файл", upload_to='files')
+    name = models.CharField(verbose_name="Имя файла", max_length=40, default="defaultName")
 
     def __str__(self):
         return self.file.name
