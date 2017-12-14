@@ -26,7 +26,7 @@
                 <div class="folderName">Добавить файлы</div>
             </div>
             <div class="appendFiles__form">
-                <form enctype="multipart/form-data" class="sendForm">{% csrf_token %}
+                <form enctype="multipart/form-data" method="POST" class="sendForm">{% csrf_token %}
                     <input type="file" name="files_upload" multiple class="files">
                     <button class="sendFiles">"Загрузить файлы"</button>
                 </form>

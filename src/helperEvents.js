@@ -2,7 +2,7 @@
 'use strict';
 const render = require('./helperRender').render;
 const currentFolder = require('./helperRender').currentFolder;
-
+const getCookie = require('./helperRender').getCookie;
 function init() {
     // Render the choosen folder
     $('.sidebar').on('click', '.folder', (event) => {
@@ -36,22 +36,23 @@ function init() {
         $('.appendFiles__form').css('display', 'flex');
     });
     //Sending files to server
-    $('.upload_files').on('click', function (event) {
-        let files = $('.files').files;
-        event.stopPropagation(); // остановка всех текущих JS событий
-        event.preventDefault();  // остановка дефолтного события для текущего элемента - клик для <a> тега
-        if (typeof files === 'undefined') return;
-        let data = new FormData();
-        $.each(files, function (key, value) {
-            data.append(key, value);
+    $('.sendFiles').on('click', function (event) {
+        event.preventDefault();
+        let files = new FormData();
+        files.append('folder', currentFolder().self.id);
+        files.append('files', $('.files')[0].files);
+        let csrfToken = getCookie('csrftoken');
+        $.ajaxSetup({
+            beforeSend: function (xhr, settings) {
+                if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type)) {
+                    xhr.setRequestHeader("X-CSRFToken", csrfToken);
+                }
+            }
         });
-        data.append('folder', currentFolder().self.pk);
         $.ajax({
-            url: '', // TODO Никита, ёбан-бобан поменяй тут URL для запроса
-            type: 'POST',
-            data: data,
-            cache: false,
-            dataType: 'json',
+            url: 'http://127.0.0.1:8000/storage/api/upload/',
+            data: files,
+            method: 'POST',
             processData: false,
             contentType: false,
             success: function (respond, status, jqXHR) {
