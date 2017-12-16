@@ -49,7 +49,10 @@ function init() {
     event.preventDefault();
     const files = new FormData();
     files.append('folder', currentFolder().self.id);
-    files.append('files', $('.files')[0].files);
+    const filesArray = Array.from($('.files')[0].files);
+    for (const file of filesArray) {
+      files.append('files', file);
+    }
     const csrfToken = getCookie('csrftoken');
     $.ajaxSetup({
       beforeSend(xhr, settings) {
@@ -64,17 +67,9 @@ function init() {
       method: 'POST',
       processData: false,
       contentType: false,
-      success(respond) {
-        if (typeof respond.error === 'undefined') {
-          console.log('Всё прошло нормально');
-        } else {
-          console.log('КОД КРАСНЫЙ КОД КРАСНЫЙ');
-        }
+      success() {
+        render(`http://127.0.0.1:8000/storage/api/folder/${currentFolder().self.id}/`);
       },
-      error(jqXHR, status) {
-        console.log(`ОШИБКА AJAX запроса: ${status}`, jqXHR);
-      },
-
     });
   });
 }
