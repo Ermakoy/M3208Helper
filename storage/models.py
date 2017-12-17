@@ -25,6 +25,7 @@ class File(models.Model):
     )
     file = models.FileField(verbose_name="Файл", upload_to='files')
     name = models.CharField(verbose_name="Имя файла", max_length=40, default="defaultName")
+    datetime_create = models.DateTimeField(verbose_name='Время загрузки файла', auto_created=True, auto_now=True)
 
     def __str__(self):
         return self.file.name

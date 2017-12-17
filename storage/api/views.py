@@ -3,22 +3,17 @@ from django.views.decorators.csrf import csrf_exempt
 
 
 from rest_framework.parsers import (
-    FileUploadParser,
     MultiPartParser,
-    FormParser,
 )
 from rest_framework.views import (
     APIView,
 )
 from rest_framework.generics import (
-    CreateAPIView,
     GenericAPIView,
     RetrieveAPIView,
 )
 from rest_framework.mixins import (
-    RetrieveModelMixin,
     DestroyModelMixin,
-    ListModelMixin,
     CreateModelMixin,
     UpdateModelMixin,
 )
