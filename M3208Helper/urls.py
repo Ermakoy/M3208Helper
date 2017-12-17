@@ -10,7 +10,7 @@ from storage.views import IndexView
 urlpatterns = [
     path(r'admin/', admin.site.urls),
     path(r'storage/', include('storage.urls')),
+    path(r'accounts/login/', auth_views.LoginView.as_view()),
     path(r'', IndexView.as_view()),
-    path(r'accounts/login', auth_views.LoginView.as_view())
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

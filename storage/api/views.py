@@ -33,7 +33,7 @@ from storage.models import Folder, File
 class RootFolderAPIView(RetrieveAPIView):
     queryset = Folder.objects.all()
     serializer_class = InFolderSerializer
-    # permission_classes = (IsAuthenticated,)
+    permission_classes = (IsAuthenticated,)
 
     def get_object(self):
         return self.queryset.get(parent_folder=None)
@@ -43,7 +43,7 @@ class RootFolderAPIView(RetrieveAPIView):
 class FolderAPIView(RetrieveAPIView, UpdateModelMixin, CreateModelMixin, DestroyModelMixin, GenericAPIView):
     queryset = Folder.objects.all()
     serializer_class = InFolderSerializer
-    # permission_classes = (IsAuthenticated,)
+    permission_classes = (IsAuthenticated,)
 
     def get(self, request, *args, **kwargs):
         return self.retrieve(request, *args, **kwargs)
@@ -58,7 +58,7 @@ class FolderAPIView(RetrieveAPIView, UpdateModelMixin, CreateModelMixin, Destroy
 @method_decorator(csrf_exempt, name='dispatch')
 class FileUploadAPIView(APIView):
     parser_classes = (MultiPartParser,)
-    # permission_classes = (IsAuthenticated,)
+    permission_classes = (IsAuthenticated,)
 
     def post(self, request, format=None):
         file_obj_list = request.data.getlist('files')
