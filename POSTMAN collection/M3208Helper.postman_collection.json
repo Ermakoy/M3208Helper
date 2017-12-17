@@ -25,7 +25,7 @@
 				{
 					"name": "127.0.0.1:8000/storage/api/folder/1/",
 					"request": {
-						"url": "127.0.0.1:8000/storage/api/folder/1/",
+						"url": "127.0.0.1:8000/storage/api/folder/1",
 						"method": "GET",
 						"header": [],
 						"body": {},
@@ -103,16 +103,15 @@
 								},
 								{
 									"key": "files",
-									"value": "",
 									"description": "",
-									"type": "file"
+									"type": "file",
+									"src": "Screenshot from 2017-12-14 23-03-32.png"
 								},
 								{
 									"key": "files",
 									"value": "",
 									"description": "",
-									"type": "file",
-									"disabled": true
+									"type": "file"
 								}
 							]
 						},
@@ -121,6 +120,34 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "accounts",
+			"description": "",
+			"item": [
+				{
+					"name": "127.0.0.1:8000/accounts/login",
+					"request": {
+						"url": "127.0.0.1:8000/accounts/login",
+						"method": "GET",
+						"header": [],
+						"body": {},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "127.0.0.1:8000/",
+			"request": {
+				"url": "127.0.0.1:8000/",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
 		}
 	]
 }
