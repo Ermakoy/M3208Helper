@@ -25,22 +25,10 @@ class InFolderSerializer(serializers.ModelSerializer):
         model = Folder
         fields = '__all__'
 
-    # def update_validation(self, instance, validated_data):
-    #     if Folder.objects.get(id=instance.parent_folder_id).child_folders.all().get(name=validated_data['name']):
-    #         raise ValidationError(detail="Папка с таикм именем уже сущесвует")
-    #
-    # def create_validation(self, validated_data):
-    #
-    #     try:
-    #         parent_folder = Folder.objects.get(id=validated_data['parent_folder_id'])
-    #     except:
-    #         ValidationError(detail="Родительсксо папки не существует")
-    #
-    #     if Folder.objects.get(id=validated_data['parent_folder_id']).child_folders.all().get(name=validated_data['name']):
-    #         raise ValidationError(detail="Папка с таиким именем уже сущесвует")
-
-    # TODO: Валидаци данных про создание папки(Root и Одинаковые имена в папке)
     def create(self, validated_data):
+        child_folders = Folder.objects.get(id=validated_data['parent_folder']).child_folders.all()
+        if validated_data['name'] in [folder.name for folder in child_folders]:
+            raise ValidationError
         instance = Folder(
             name=validated_data['name'],
             parent_folder=validated_data['parent_folder'],
