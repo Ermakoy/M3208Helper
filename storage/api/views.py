@@ -54,6 +54,7 @@ class FolderAPIView(RetrieveAPIView, UpdateModelMixin, CreateModelMixin, Destroy
     def put(self, request, *args, **kwargs):
          return self.update(request, *args, **kwargs)
 
+
 @method_decorator(csrf_exempt, name='dispatch')
 class FileUploadAPIView(APIView):
     parser_classes = (MultiPartParser,)
