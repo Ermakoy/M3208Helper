@@ -104,7 +104,7 @@ function renderFiles(file) {
   }
   const html = renderTemplate('files', {
     name: fileName,
-    link: `http://127.0.0.1:8000/media/${file.file}`,
+    link: `${file.file}`,
     date: file.date_creation,
   });
   $('.content').append(html);

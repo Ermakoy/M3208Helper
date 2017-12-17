@@ -1,9 +1,7 @@
 // Event functions
 
 const { render, currentFolder, getCookie } = require('./helperRender');
-// const render = require('./helperRender').render;
-// const currentFolder = require('./helperRender').currentFolder;
-// const getCookie = require('./helperRender').getCookie;
+
 function init() {
   // Render the choosen folder
   $('.sidebar').on('click', '.folder', (event) => {
