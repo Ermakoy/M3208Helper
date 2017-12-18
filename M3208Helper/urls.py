@@ -11,6 +11,7 @@ urlpatterns = [
     path(r'admin/', admin.site.urls),
     path(r'storage/', include('storage.urls')),
     path(r'accounts/login/', auth_views.LoginView.as_view()),
+    path(r'registration/', include('registration.urls')),
     path(r'', IndexView.as_view()),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

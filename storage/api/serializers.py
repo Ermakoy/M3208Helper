@@ -29,6 +29,7 @@ class InFolderSerializer(serializers.ModelSerializer):
         child_folders = Folder.objects.get(id=validated_data['parent_folder']).child_folders.all()
         if validated_data['name'] in [folder.name for folder in child_folders]:
             raise ValidationError
+
         instance = Folder(
             name=validated_data['name'],
             parent_folder=validated_data['parent_folder'],
