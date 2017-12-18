@@ -25,7 +25,7 @@ SECRET_KEY = 'notasecretkeynow897328gfyg6^%$5@E!$@!%^%^&fd2tyftydfe5re1'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['82.202.236.209']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition

@@ -1,0 +1,12 @@
+server {
+    listen 80;
+    server_name www.our-caddy.ru;
+    location = /favicon.ico { access_log off; log_not_found off; }
+    location /static/ {
+        root /home/M3208Helper-Folder/M3208Helper/static;
+    }
+    location / {
+        include         uwsgi_params;
+        uwsgi_pass      unix:/run/uwsgi/M3208Helper.sock;
+    }
+}
