@@ -34,6 +34,11 @@ function init() {
         success() {
           render(`http://127.0.0.1:8000/storage/api/folder/${currentFolder().self.id}/`);
         },
+        error(request, status) {
+          if (status === 400) {
+            alert('Папка с таким именем уже существует');
+          }
+        },
       });
     }
   });

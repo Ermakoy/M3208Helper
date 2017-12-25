@@ -1,13 +1,22 @@
+{% load static %}
 <html>
 <head>
     <title>M3208</title>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <link rel="stylesheet" href="{% static 'auth.css' %}">
+    <link rel="stylesheet" href="">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'image/favicon.ico' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'image/favicon.ico' %}">
 </head>
 <body>
-  <h2>Login</h2>
-  <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Login</button>
-  </form>
+  <div class="auth">
+    <img src="{% static 'image/Caddy.png' %}" alt="Caddy">
+    <p>Login</p>
+    <input type="text">
+    <p>Password</p>
+    <input type="password"><br>
+    <input type="submit" value="Войти">
+  </div>
 </body>
 </html>
