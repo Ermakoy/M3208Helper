@@ -4,7 +4,7 @@
 // Render and technician function
 const FolderClass = require('./helperFolder');
 
-let currentFolder;
+const currentFolder = new FolderClass(null, null, null);
 
 function setBackspace() {
   $('.sidebar').prepend('<div class=\'backspace\'>\n' +
@@ -116,7 +116,14 @@ function renderFiles(file) {
  */
 function render(urlPattern) {
   $.getJSON(urlPattern, (data) => {
-    currentFolder = new FolderClass(data.child_folders, data.files, { id: data.id, name: data.name, parentID: data.parent_folder });
+    // currentFolder = new FolderClass(data.child_folders, data.files, { id: data.id, name: data.name, parentID: data.parent_folder });
+    currentFolder.childFolders = data.child_folders;
+    currentFolder.files = data.files;
+    currentFolder.self = {
+      id: data.id,
+      name: data.name,
+      parentID: data.parent_folder,
+    };
     const sidebarContent = $('.sidebar__content');
     sidebarContent.empty();
     const content = $('.content');
@@ -141,13 +148,12 @@ function init() {
   const folderParam = getParameterByName('folder');
   const fileParam = getParameterByName('file');
   if (folderParam === null) {
-    let urlPattern = 'http://127.0.0.1:8000/storage/api/root/';
-    $.getJSON(urlPattern, (data) => {
-      currentFolder = new FolderClass(null, data.files, { id: data.id, name: data.name, parentID: data.parent_folder });
-      urlPattern = `http://127.0.0.1:8000/storage/api/folder/${currentFolder.self.id}/`;
-      setBackspace();
-    });
-    render(urlPattern);
+    // $.getJSON(urlPattern, (data) => {
+    //   currentFolder = new FolderClass(null, data.files, { id: data.id, name: data.name, parentID: data.parent_folder });
+    //   urlPattern = `http://127.0.0.1:8000/storage/api/folder/${currentFolder.self.id}/`;
+    //   setBackspace();
+    // });
+    render('http://127.0.0.1:8000/storage/api/root/');
   } else if (fileParam === null) {
     render(`http://127.0.0.1:8000/storage/api/folder/${folderParam.substr(1, folderParam.length - 2)}/`);
   }
